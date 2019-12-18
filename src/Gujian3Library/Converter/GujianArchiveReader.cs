@@ -8,7 +8,6 @@ namespace Gujian3Library.Converter
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Text;
-    using Gujian3Library.Oodle;
     using Yarhl.FileFormat;
     using Yarhl.FileSystem;
     using Yarhl.IO;

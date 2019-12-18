@@ -9,14 +9,14 @@ namespace Gujian3Tool.Options
     /// Gujian 3 data archive extract options.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract", HelpText = "Extract contents from a Gujian 3 data archive.")]
+    [Verb("extract", HelpText = "Extract contents from Gujian 3 data directory.")]
     internal class Extract
     {
         /// <summary>
         /// Gets or sets the archive path.
         /// </summary>
-        [Value(0, MetaName = "archive", Required = true, HelpText = "Gujian 3 data archive path.")]
-        public string ArchivePath { get; set; }
+        [Value(0, MetaName = "idx file", Required = true, HelpText = "Gujian 3 idx file path.")]
+        public string IndexPath { get; set; }
 
         /// <summary>
         /// Gets or sets the output directory.

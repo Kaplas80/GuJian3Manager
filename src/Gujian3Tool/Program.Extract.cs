@@ -20,9 +20,9 @@ namespace Gujian3Tool
         {
             WriteHeader();
 
-            if (!File.Exists(opts.ArchivePath))
+            if (!File.Exists(opts.IndexPath))
             {
-                Console.WriteLine($"ERROR: \"{opts.ArchivePath}\" not found!!!!");
+                Console.WriteLine($"ERROR: \"{opts.IndexPath}\" not found!!!!");
                 return;
             }
 
@@ -38,47 +38,36 @@ namespace Gujian3Tool
                 }
             }
 
-            string idxPath = Path.Join(Path.GetDirectoryName(opts.ArchivePath), "_index", "303.idx");
-
-            IDictionary<string, List<string>> fileNames;
-            if (File.Exists(idxPath))
-            {
-                fileNames = LoadFileNames(idxPath);
-            }
-            else
-            {
-                Console.WriteLine($"WARNING: '{idxPath}' NOT FOUND. FILE HASHES WILL BE USED AS FILE NAMES.");
-                fileNames = new Dictionary<string, List<string>>();
-            }
+            IDictionary<string, List<string>> fileNames = LoadFileNames(opts.IndexPath);
 
             Directory.CreateDirectory(opts.OutputDirectory);
 
-            Console.Write("Loading data file (this may take a while)...");
-            using Node archive = NodeFactory.FromFile(opts.ArchivePath);
-            archive.TransformWith<GujianArchiveReader>();
-            Console.Write("DONE!");
+            string dataDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(opts.IndexPath), ".."));
+            string[] dataFiles = Directory.GetFiles(dataDirectory, "data???");
 
-            Extract(archive, opts.OutputDirectory, fileNames);
+            foreach (string dataFile in dataFiles)
+            {
+                Console.Write($"Loading '{dataFile}' (this may take a while)... ");
+                using Node archive = NodeFactory.FromFile(dataFile);
+                archive.TransformWith<GujianArchiveReader>();
+                Console.WriteLine("DONE!");
+
+                Extract(archive, opts.OutputDirectory, fileNames);
+
+                archive.Dispose();
+            }
         }
 
         private static void Extract(Node root, string outputFolder, IDictionary<string, List<string>> fileNames)
         {
-            int unknownFiles = 0;
             foreach (Node node in Navigator.IterateNodes(root))
             {
-                List<string> files;
-                if (fileNames.ContainsKey(node.Name))
+                if (!fileNames.ContainsKey(node.Name))
                 {
-                    files = fileNames[node.Name];
+                    continue;
                 }
-                else
-                {
-                    files = new List<string>
-                    {
-                        $"unknown_{unknownFiles:0000}",
-                    };
-                    unknownFiles++;
-                }
+
+                List<string> files = fileNames[node.Name];
 
                 node.TransformWith<Decompressor>();
 
@@ -92,12 +81,14 @@ namespace Gujian3Tool
                     node.Stream.WriteTo(outputPath);
                     Console.WriteLine("DONE!");
                 }
+
+                node.Dispose();
             }
         }
 
         private static IDictionary<string, List<string>> LoadFileNames(string idxPath)
         {
-            Console.Write("Loading index file...");
+            Console.Write("Loading index file... ");
             using Node index = NodeFactory.FromFile(idxPath);
             index.TransformWith<Decompressor>().TransformWith<IndexFileReader>();
             IDictionary<string, List<string>> result = index.GetFormatAs<IndexFile>().Dictionary;
