@@ -1,7 +1,7 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Library.Converter
+namespace GuJian3Library.Converter
 {
     using System;
     using System.Collections.Generic;

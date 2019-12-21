@@ -1,7 +1,7 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Library.Oodle
+namespace GuJian3Library.Oodle
 {
     using System;
     using System.Runtime.InteropServices;
@@ -10,7 +10,7 @@ namespace Gujian3Library.Oodle
     using Yarhl.IO;
 
     /// <summary>
-    /// Manages Oodle compression used in Gujian 3.
+    /// Manages Oodle compression used in GuJian 3.
     /// </summary>
     public class Decompressor : IConverter<BinaryFormat, BinaryFormat>
     {

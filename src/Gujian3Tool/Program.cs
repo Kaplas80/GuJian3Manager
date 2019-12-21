@@ -1,11 +1,10 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Tool
+namespace GuJian3Tool
 {
     using System;
     using CommandLine;
-    using CommandLine.Text;
 
     /// <summary>
     /// Main program.
@@ -15,10 +14,11 @@ namespace Gujian3Tool
         private static void Main(string[] args)
         {
             using var parser = new Parser(with => with.HelpWriter = null);
-            ParserResult<object> parserResult = parser.ParseArguments<Options.Extract, Options.Create>(args);
+            ParserResult<object> parserResult = parser.ParseArguments<Options.Extract, Options.Create, Options.Info>(args);
             parserResult
                 .WithParsed<Options.Extract>(Extract)
-                .WithParsed<Options.Create>(Create);
+                .WithParsed<Options.Create>(Create)
+                .WithParsed<Options.Info>(ShowInfo);
         }
 
         private static void WriteHeader()

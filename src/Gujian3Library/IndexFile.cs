@@ -1,13 +1,13 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Library
+namespace GuJian3Library
 {
     using System.Collections.Generic;
     using Yarhl.FileFormat;
 
     /// <summary>
-    /// Gujian 3 index file. Contains SHA-1 file hashes and names.
+    /// GuJian 3 index file. Contains SHA-1 file hashes and names.
     /// </summary>
     public class IndexFile : IFormat
     {

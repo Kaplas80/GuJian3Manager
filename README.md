@@ -1,2 +1,2 @@
-# Gujian3Manager
-Tools for Gujian 3 files.
+# GuJian3Manager
+Tools for GuJian 3 files.

@@ -1,7 +1,7 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Library.Converter
+namespace GuJian3Library.Converter
 {
     using System;
     using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace Gujian3Library.Converter
     using Yarhl.IO;
 
     /// <summary>
-    /// Converter from BinaryFormat to GujianArchive.
+    /// Converter from BinaryFormat to GuJianArchive.
     /// </summary>
-    public class GujianArchiveReader : IConverter<BinaryFormat, NodeContainerFormat>
+    public class GuJianArchiveReader : IConverter<BinaryFormat, NodeContainerFormat>
     {
         /// <inheritdoc/>
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Ownserhip dispose transferred")]

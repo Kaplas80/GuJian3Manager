@@ -1,15 +1,15 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Tool.Options
+namespace GuJian3Tool.Options
 {
     using CommandLine;
 
     /// <summary>
-    /// Gujian 3 data archive extract options.
+    /// GuJian 3 data archive extract options.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("create", HelpText = "Create a Gujian 3 data archive.")]
+    [Verb("create", HelpText = "Create a GuJian 3 data archive.")]
     internal class Create
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace Gujian3Tool.Options
         /// <summary>
         /// Gets or sets the archive path.
         /// </summary>
-        [Value(1, MetaName = "archive", Required = true, HelpText = "New Gujian 3 data archive path.")]
+        [Value(1, MetaName = "archive", Required = true, HelpText = "New GuJian 3 data archive path.")]
         public string ArchivePath { get; set; }
     }
 }

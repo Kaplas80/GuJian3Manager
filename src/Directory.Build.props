@@ -2,11 +2,11 @@
 <Project>
     <PropertyGroup>
         <Version>1.0.0</Version>
-        <Product>Gujian3Manager</Product>
+        <Product>GuJian3Manager</Product>
 
         <Authors>Kaplas</Authors>
         <Copyright>Copyright (c) 2019 Kaplas</Copyright>
-        <RepositoryUrl>https://github.com/Kaplas80/Gujian3Manager/</RepositoryUrl>
+        <RepositoryUrl>https://github.com/Kaplas80/GuJian3Manager/</RepositoryUrl>
         <License>MIT</License>
     </PropertyGroup>
 </Project>

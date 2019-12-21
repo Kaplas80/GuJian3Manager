@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Gujian3Library\Gujian3Library.csproj" />
+    <ProjectReference Include="..\GuJian3Library\GuJian3Library.csproj" />
     <ProjectReference Include="..\Yarhl\src\Yarhl\Yarhl.csproj" />
   </ItemGroup>
 

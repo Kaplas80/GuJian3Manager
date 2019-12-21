@@ -1,14 +1,14 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace Gujian3Tool
+namespace GuJian3Tool
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Gujian3Library;
-    using Gujian3Library.Converter;
-    using Gujian3Library.Oodle;
+    using GuJian3Library;
+    using GuJian3Library.Converter;
+    using GuJian3Library.Oodle;
     using Yarhl.FileSystem;
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace Gujian3Tool
             {
                 Console.Write($"Loading '{dataFile}' (this may take a while)... ");
                 using Node archive = NodeFactory.FromFile(dataFile);
-                archive.TransformWith<GujianArchiveReader>();
+                archive.TransformWith<GuJianArchiveReader>();
                 Console.WriteLine("DONE!");
 
                 Extract(archive, opts.OutputDirectory, fileNames);
