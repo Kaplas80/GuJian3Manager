@@ -127,6 +127,8 @@ namespace GuJian3Library.Converter
             }
         }
 
+        // It's a XXTEA algorithm
+        // See: https://en.wikipedia.org/wiki/XXTEA
         private static void DecryptBlock(IList<uint> data, int blockLength, IReadOnlyList<uint> key)
         {
             uint counter = (uint)(((0x34 / blockLength) + 6) * -0x61c88647);
@@ -138,7 +140,7 @@ namespace GuJian3Library.Converter
                 {
                     uint previous = (i - 1) >= 0 ? data[i - 1] : data[blockLength - 1];
 
-                    uint value1 = (next * 4) ^ (previous >> 5);
+                    uint value1 = (next << 2) ^ (previous >> 5);
                     uint value2 = (next >> 3) ^ (previous << 4);
                     uint value3 = next ^ counter;
                     uint value4 = previous ^ key[(int)((i & 3) ^ keyBase)];
