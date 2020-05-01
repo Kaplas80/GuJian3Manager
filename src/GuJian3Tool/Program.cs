@@ -13,8 +13,7 @@ namespace GuJian3Tool
     {
         private static void Main(string[] args)
         {
-            using var parser = new Parser(with => with.HelpWriter = null);
-            ParserResult<object> parserResult = parser.ParseArguments<Options.Extract, Options.Create, Options.Info, Options.Decrypt>(args);
+            ParserResult<object> parserResult = Parser.Default.ParseArguments<Options.Extract, Options.Create, Options.Info, Options.Decrypt>(args);
             parserResult
                 .WithParsed<Options.Extract>(Extract)
                 .WithParsed<Options.Create>(Create)
