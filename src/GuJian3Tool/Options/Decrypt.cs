@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Tool.Options
@@ -23,5 +23,11 @@ namespace GuJian3Tool.Options
         /// </summary>
         [Value(1, MetaName = "decrypted_file", Required = true, HelpText = "Decrypted file.")]
         public string OutputFile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file decryption key.
+        /// </summary>
+        [Option('k', "key", HelpText = "Decryption key.")]
+        public string Key { get; set; }
     }
 }
