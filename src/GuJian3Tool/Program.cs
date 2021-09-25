@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Tool
@@ -13,10 +13,9 @@ namespace GuJian3Tool
     {
         private static void Main(string[] args)
         {
-            ParserResult<object> parserResult = Parser.Default.ParseArguments<Options.Extract, Options.Create, Options.Info, Options.Decrypt>(args);
+            ParserResult<object> parserResult = Parser.Default.ParseArguments<Options.Extract, Options.Info, Options.Decrypt>(args);
             parserResult
                 .WithParsed<Options.Extract>(Extract)
-                .WithParsed<Options.Create>(Create)
                 .WithParsed<Options.Info>(ShowInfo)
                 .WithParsed<Options.Decrypt>(Decrypt);
         }
