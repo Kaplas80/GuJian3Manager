@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Library.Oodle
@@ -55,7 +55,7 @@ namespace GuJian3Library.Oodle
                 for (int i = 0; i < chunkCount; i++)
                 {
                     int chunkCompressedSize = reader.ReadInt32();
-                    source.Stream.PushToPosition(dataOffset, SeekMode.Start);
+                    source.Stream.PushToPosition(dataOffset, System.IO.SeekOrigin.Begin);
 
                     int currentChunkSize = reader.ReadInt32();
                     var compressedData = new byte[chunkCompressedSize - 4];

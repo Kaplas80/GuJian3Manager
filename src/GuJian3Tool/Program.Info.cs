@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Tool
@@ -35,8 +35,6 @@ namespace GuJian3Tool
                 archive.TransformWith<GuJianArchiveReader>();
 
                 ShowInfo(archive, fileNames);
-
-                archive.Dispose();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Library.Converter
@@ -32,7 +32,7 @@ namespace GuJian3Library.Converter
                 throw new ArgumentNullException(nameof(source));
             }
 
-            if (string.IsNullOrEmpty(this.keyString))
+            if (this.key == null)
             {
                 throw new FormatException("Uninitialized key.");
             }

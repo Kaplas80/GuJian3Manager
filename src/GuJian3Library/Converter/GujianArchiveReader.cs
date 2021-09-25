@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Library.Converter
@@ -75,7 +75,7 @@ namespace GuJian3Library.Converter
                     result.Root.Add(node);
                 }
 
-                source.Stream.Seek(nextChunk, SeekMode.Start);
+                source.Stream.Seek(nextChunk, System.IO.SeekOrigin.Begin);
             }
             while (nextChunk != 0);
 
