@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Tool
@@ -53,8 +53,6 @@ namespace GuJian3Tool
                 Console.WriteLine("DONE!");
 
                 Extract(archive, opts.OutputDirectory, fileNames);
-
-                archive.Dispose();
             }
         }
 
