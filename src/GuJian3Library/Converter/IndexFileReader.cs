@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------
+// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
 namespace GuJian3Library.Converter
@@ -25,7 +25,7 @@ namespace GuJian3Library.Converter
 
             var result = new IndexFile();
 
-            var reader = new TextReader(source.Stream);
+            var reader = new TextDataReader(source.Stream);
 
             while (!source.Stream.EndOfStream)
             {
