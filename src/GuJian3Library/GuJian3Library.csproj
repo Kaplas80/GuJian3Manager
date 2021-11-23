@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <CodeAnalysisRuleSet>..\Standard.ruleset</CodeAnalysisRuleSet>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="..\Analyzers.props" />
+  <ItemGroup>
+    <None Include="../../docs/images/logo_128.png" Pack="true" PackagePath="$(PackageIcon)" Visible="false" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageReference Include="Yarhl" Version="3.1.1-preview.28" />
+    <PackageReference Include="Yarhl" />
+    <PackageReference Include="Yarhl.Media" />
   </ItemGroup>
+
 </Project>

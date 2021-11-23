@@ -17,9 +17,9 @@ namespace GuJian3Library.Converter
         private uint[] key;
 
         /// <inheritdoc/>
-        public void Initialize(string key)
+        public void Initialize(string parameters)
         {
-            var bytes = Encoding.ASCII.GetBytes(key);
+            var bytes = Encoding.ASCII.GetBytes(parameters);
             this.key = new uint[4];
             Buffer.BlockCopy(bytes, 0, this.key, 0, 16);
         }
