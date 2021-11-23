@@ -31,7 +31,7 @@ namespace GuJian3Tool
                 Console.WriteLine("WARNING: Output directory already exists. Its contents may be overwritten.");
                 Console.Write("Continue? (y/N) ");
                 string answer = Console.ReadLine();
-                if (!string.IsNullOrEmpty(answer) && answer.ToUpperInvariant() != "Y")
+                if (!string.IsNullOrEmpty(answer) && !string.Equals(answer, "Y", StringComparison.InvariantCultureIgnoreCase))
                 {
                     Console.WriteLine("CANCELLED BY USER.");
                     return;

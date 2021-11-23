@@ -1,0 +1,8 @@
+- name: Guides
+  items:
+    - name: First steps
+      href: First-Steps.md
+- name: Contributing
+  items:
+    - name: Guidelines
+      href: Contributing.md

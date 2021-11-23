@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuJian3Tool", "GuJian3Tool\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuJian3Library", "GuJian3Library\GuJian3Library.csproj", "{BD59A738-B1D9-4403-9345-C79D492A3FEB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuJian3Tests", "GuJian3Tests\GuJian3Tests.csproj", "{CDA27740-6DE7-4429-94AA-D3FDB10DE4F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BD59A738-B1D9-4403-9345-C79D492A3FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD59A738-B1D9-4403-9345-C79D492A3FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD59A738-B1D9-4403-9345-C79D492A3FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDA27740-6DE7-4429-94AA-D3FDB10DE4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDA27740-6DE7-4429-94AA-D3FDB10DE4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDA27740-6DE7-4429-94AA-D3FDB10DE4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDA27740-6DE7-4429-94AA-D3FDB10DE4F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

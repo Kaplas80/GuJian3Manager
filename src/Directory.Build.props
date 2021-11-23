@@ -1,12 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <Version>1.0.0</Version>
-        <Product>GuJian3Manager</Product>
-
+        <Product>GuJian3 Manager</Product>
         <Authors>Kaplas</Authors>
-        <Copyright>Copyright (c) 2019 Kaplas</Copyright>
-        <RepositoryUrl>https://github.com/Kaplas80/GuJian3Manager/</RepositoryUrl>
-        <License>MIT</License>
+        <Company>None</Company>
+        <Copyright>Copyright (C) 2021 Kaplas</Copyright>
+
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/Kaplas80/GuJian3Manager</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Kaplas80/GuJian3Manager</RepositoryUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>net;csharp;romhacking;gujian3</PackageTags>
+    </PropertyGroup>
+
+    <!-- Deterministic and source link -->
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <!-- Deterministic and source link -->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+        <Deterministic>true</Deterministic>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <!-- Code analyzers -->
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="StyleCop.Analyzers" PrivateAssets="All"/>
+        <PackageReference Include="SonarAnalyzer.CSharp" PrivateAssets="All"/>
+        <PackageReference Include="Roslynator.Analyzers" PrivateAssets="All"/>
+    </ItemGroup>
 </Project>

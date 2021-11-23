@@ -2,19 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <CodeAnalysisRuleSet>..\Standard.ruleset</CodeAnalysisRuleSet>
+    <TargetFramework>net5.0</TargetFramework>
+    <SelfContained>false</SelfContained>
   </PropertyGroup>
 
-  <Import Project="..\Analyzers.props" />
-
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageReference Include="Yarhl" Version="3.1.1-preview.28" />
+    <PackageReference Include="CommandLineParser" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\GuJian3Library\GuJian3Library.csproj" />
   </ItemGroup>
