@@ -1,11 +1,10 @@
 // -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace GuJian3Library.Converter
+namespace GuJian3Library.Converters.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Text;
     using Yarhl.FileFormat;
@@ -13,12 +12,20 @@ namespace GuJian3Library.Converter
     using Yarhl.IO;
 
     /// <summary>
-    /// Converter from BinaryFormat to GuJianArchive.
+    /// Converter from BinaryFormat to NodeContainer.
     /// </summary>
-    public class GuJianArchiveReader : IConverter<BinaryFormat, NodeContainerFormat>
+    public class Reader : IConverter<BinaryFormat, NodeContainerFormat>
     {
-        /// <inheritdoc/>
-        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Ownserhip dispose transferred")]
+        /// <summary>
+        /// Max number of files in the archive.
+        /// </summary>
+        private const int MaxFiles = 0x1000;
+
+        /// <summary>
+        /// Ruads a GuJian3 data file.
+        /// </summary>
+        /// <param name="source">The GuJian3 data file.</param>
+        /// <returns>The NodeContainerFormat.</returns>
         public NodeContainerFormat Convert(BinaryFormat source)
         {
             if (source == null)
@@ -55,14 +62,16 @@ namespace GuJian3Library.Converter
 
                 nextChunk = reader.ReadInt32();
 
-                for (int i = 0; i < 0x1000; i++)
+                for (int i = 0; i < MaxFiles; i++)
                 {
                     byte[] hash = reader.ReadBytes(20);
                     string hashString = ToHexString(hash);
 
                     int fileOffset = reader.ReadInt32();
                     int fileCompressedSize = reader.ReadInt32();
-                    reader.ReadInt32(); // file time??
+
+                    _ = reader.ReadUInt16(); // crc-16 of header (hash + offset + size)
+                    _ = reader.ReadUInt16(); // isActive??
 
                     if (fileOffset == 0)
                     {

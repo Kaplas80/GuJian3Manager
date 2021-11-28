@@ -7,7 +7,7 @@ namespace GuJian3Tool
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using GuJian3Library.Converter;
+    using GuJian3Library.Converters.XXTEA;
     using Yarhl.FileSystem;
 
     /// <summary>
@@ -791,7 +791,7 @@ namespace GuJian3Tool
             }
             else
             {
-                var kvp = Keys.FirstOrDefault(x => opts.InputFile.EndsWith(x.Key, StringComparison.InvariantCultureIgnoreCase));
+                KeyValuePair<string, string> kvp = Keys.FirstOrDefault(x => opts.InputFile.EndsWith(x.Key, StringComparison.InvariantCultureIgnoreCase));
                 if (!kvp.Equals(default(KeyValuePair<string, string>)))
                 {
                     decryptionKey = kvp.Value;
@@ -807,7 +807,7 @@ namespace GuJian3Tool
             Console.WriteLine("Decrypting...");
 
             using Node file = NodeFactory.FromFile(opts.InputFile);
-            file.TransformWith<GuJianFileDecrypter, string>(decryptionKey);
+            file.TransformWith<Decrypt, string>(decryptionKey);
             file.Stream.WriteTo(opts.OutputFile);
             Console.WriteLine(" DONE!");
         }

@@ -1,7 +1,7 @@
 // -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace GuJian3Library.Converter
+namespace GuJian3Library.Converters.XXTEA
 {
     using System;
     using System.Collections.Generic;
@@ -12,19 +12,26 @@ namespace GuJian3Library.Converter
     /// <summary>
     /// GuJian 3 file decrypter.
     /// </summary>
-    public class GuJianFileDecrypter : IInitializer<string>, IConverter<BinaryFormat, BinaryFormat>
+    public class Decrypt : IInitializer<string>, IConverter<BinaryFormat, BinaryFormat>
     {
-        private uint[] key;
+        private uint[] _key;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Initializes the dexryption parameters.
+        /// </summary>
+        /// <param name="parameters">Decryptor configuration.</param>
         public void Initialize(string parameters)
         {
-            var bytes = Encoding.ASCII.GetBytes(parameters);
-            this.key = new uint[4];
-            Buffer.BlockCopy(bytes, 0, this.key, 0, 16);
+            byte[] bytes = Encoding.ASCII.GetBytes(parameters);
+            _key = new uint[4];
+            Buffer.BlockCopy(bytes, 0, _key, 0, 16);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Decrypts a XXTEA encrypted BinaryFormat.
+        /// </summary>
+        /// <param name="source">Encrypted format.</param>
+        /// <returns>The decrypted binary.</returns>
         public BinaryFormat Convert(BinaryFormat source)
         {
             if (source == null)
@@ -32,7 +39,7 @@ namespace GuJian3Library.Converter
                 throw new ArgumentNullException(nameof(source));
             }
 
-            if (this.key == null)
+            if (_key == null)
             {
                 throw new FormatException("Uninitialized key.");
             }
@@ -43,13 +50,13 @@ namespace GuJian3Library.Converter
             DataStream output = result.Stream;
             input.Position = 0;
 
-            var buffer = new byte[0x1000];
+            byte[] buffer = new byte[0x1000];
             while (!source.Stream.EndOfStream)
             {
                 int size = (int)Math.Min(0x1000, input.Length - input.Position);
                 int readCount = input.Read(buffer, 0, size);
 
-                DecryptChunk(buffer, readCount, this.key);
+                DecryptChunk(buffer, readCount, _key);
 
                 output.Write(buffer, 0, readCount);
             }
@@ -63,7 +70,7 @@ namespace GuJian3Library.Converter
 
             for (int i = 0; i < chunkCount; i++)
             {
-                var data = new uint[64];
+                uint[] data = new uint[64];
                 Buffer.BlockCopy(buffer, i * 256, data, 0, 256);
                 DecryptBlock(data, 64, key);
                 Buffer.BlockCopy(data, 0, buffer, i * 256, 256);
@@ -73,7 +80,7 @@ namespace GuJian3Library.Converter
             int lastBlockLength = (size - (chunkCount * 256)) / 4;
             if (lastBlockLength > 1)
             {
-                var data = new uint[lastBlockLength];
+                uint[] data = new uint[lastBlockLength];
                 Buffer.BlockCopy(buffer, chunkCount * 256, data, 0, lastBlockLength * 4);
                 DecryptBlock(data, lastBlockLength, key);
                 Buffer.BlockCopy(data, 0, buffer, chunkCount * 256, lastBlockLength * 4);
@@ -90,7 +97,7 @@ namespace GuJian3Library.Converter
             }
         }
 
-        // It's a XXTEA algorithm
+        // XXTEA algorithm
         // See: https://en.wikipedia.org/wiki/XXTEA
         private static void DecryptBlock(IList<uint> data, int blockLength, IReadOnlyList<uint> key)
         {
@@ -108,7 +115,7 @@ namespace GuJian3Library.Converter
                     uint value3 = next ^ counter;
                     uint value4 = previous ^ key[(int)((i & 3) ^ keyBase)];
 
-                    data[i] = data[i] - (value1 + value2 ^ value3 + value4);
+                    data[i] -= value1 + value2 ^ value3 + value4;
 
                     next = data[i];
                 }

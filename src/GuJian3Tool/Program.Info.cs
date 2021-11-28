@@ -6,7 +6,6 @@ namespace GuJian3Tool
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using GuJian3Library.Converter;
     using Yarhl.FileSystem;
 
     /// <summary>
@@ -32,7 +31,7 @@ namespace GuJian3Tool
             foreach (string dataFile in dataFiles)
             {
                 using Node archive = NodeFactory.FromFile(dataFile);
-                archive.TransformWith<GuJianArchiveReader>();
+                archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
 
                 ShowInfo(archive, fileNames);
             }
