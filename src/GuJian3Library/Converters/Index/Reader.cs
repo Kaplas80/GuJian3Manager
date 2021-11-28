@@ -1,19 +1,24 @@
 // -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace GuJian3Library.Converter
+namespace GuJian3Library.Converters.Index
 {
     using System;
     using System.Collections.Generic;
+    using GuJian3Library.Formats;
     using Yarhl.FileFormat;
     using Yarhl.IO;
 
     /// <summary>
     /// Converter from BinaryFormat to IndexFile.
     /// </summary>
-    public class IndexFileReader : IConverter<BinaryFormat, IndexFile>
+    public class Reader : IConverter<BinaryFormat, IndexFile>
     {
-        /// <inheritdoc/>
+        /// <summary>
+        /// Reads a GuJian3 index file.
+        /// </summary>
+        /// <param name="source">The file in BinaryFormat.</param>
+        /// <returns>The file.</returns>
         public IndexFile Convert(BinaryFormat source)
         {
             if (source == null)

@@ -1,7 +1,7 @@
 ﻿// -------------------------------------------------------
 // © Kaplas. Licensed under MIT. See LICENSE for details.
 // -------------------------------------------------------
-namespace GuJian3Library
+namespace GuJian3Library.Formats
 {
     using System.Collections.Generic;
     using Yarhl.FileFormat;
@@ -16,7 +16,7 @@ namespace GuJian3Library
         /// </summary>
         public IndexFile()
         {
-            this.Dictionary = new Dictionary<string, List<string>>();
+            Dictionary = new Dictionary<string, List<string>>();
         }
 
         /// <summary>

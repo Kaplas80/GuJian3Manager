@@ -6,9 +6,7 @@ namespace GuJian3Tool
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using GuJian3Library;
-    using GuJian3Library.Converter;
-    using GuJian3Library.Oodle;
+    using GuJian3Library.Formats;
     using Yarhl.FileSystem;
 
     /// <summary>
@@ -43,13 +41,11 @@ namespace GuJian3Tool
             Directory.CreateDirectory(opts.OutputDirectory);
 
             string dataDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(opts.IndexPath), ".."));
-            string[] dataFiles = Directory.GetFiles(dataDirectory, "data???");
-
-            foreach (string dataFile in dataFiles)
+            foreach (string dataFile in Directory.GetFiles(dataDirectory, "data???"))
             {
                 Console.Write($"Loading '{dataFile}' (this may take a while)... ");
                 using Node archive = NodeFactory.FromFile(dataFile);
-                archive.TransformWith<GuJianArchiveReader>();
+                archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
                 Console.WriteLine("DONE!");
 
                 Extract(archive, opts.OutputDirectory, fileNames);
@@ -67,7 +63,7 @@ namespace GuJian3Tool
 
                 List<string> files = fileNames[node.Name];
 
-                node.TransformWith<Decompressor>();
+                node.TransformWith<GuJian3Library.Converters.Oodle.Decompress>();
 
                 foreach (string file in files)
                 {
@@ -88,7 +84,8 @@ namespace GuJian3Tool
         {
             Console.Write("Loading index file... ");
             using Node index = NodeFactory.FromFile(idxPath);
-            index.TransformWith<Decompressor>().TransformWith<IndexFileReader>();
+            index.TransformWith<GuJian3Library.Converters.Oodle.Decompress>();
+            index.TransformWith<GuJian3Library.Converters.Index.Reader>();
             IDictionary<string, List<string>> result = index.GetFormatAs<IndexFile>().Dictionary;
             Console.WriteLine("DONE!");
 
