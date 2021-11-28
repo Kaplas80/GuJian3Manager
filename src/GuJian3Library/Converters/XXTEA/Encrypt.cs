@@ -10,16 +10,16 @@ namespace GuJian3Library.Converters.XXTEA
     using Yarhl.IO;
 
     /// <summary>
-    /// GuJian 3 file decrypter.
+    /// GuJian 3 file encrypter.
     /// </summary>
-    public class Decrypt : IInitializer<string>, IConverter<BinaryFormat, BinaryFormat>
+    public class Encrypt : IInitializer<string>, IConverter<BinaryFormat, BinaryFormat>
     {
         private uint[] _key;
 
         /// <summary>
-        /// Initializes the decryption parameters.
+        /// Initializes the encryption parameters.
         /// </summary>
-        /// <param name="parameters">Decryptor configuration.</param>
+        /// <param name="parameters">Encryptor configuration.</param>
         public void Initialize(string parameters)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(parameters);
@@ -28,10 +28,10 @@ namespace GuJian3Library.Converters.XXTEA
         }
 
         /// <summary>
-        /// Decrypts a XXTEA encrypted BinaryFormat.
+        /// Encrypts a BinaryFormat using XXTEA .
         /// </summary>
-        /// <param name="source">Encrypted format.</param>
-        /// <returns>The decrypted binary.</returns>
+        /// <param name="source">Binary format.</param>
+        /// <returns>The encrypted binary.</returns>
         public BinaryFormat Convert(BinaryFormat source)
         {
             if (source == null)
@@ -56,7 +56,7 @@ namespace GuJian3Library.Converters.XXTEA
                 int size = (int)Math.Min(0x1000, input.Length - input.Position);
                 int readCount = input.Read(buffer, 0, size);
 
-                DecryptChunk(buffer, readCount, _key);
+                EncryptChunk(buffer, readCount, _key);
 
                 output.Write(buffer, 0, readCount);
             }
@@ -64,7 +64,7 @@ namespace GuJian3Library.Converters.XXTEA
             return result;
         }
 
-        private static void DecryptChunk(byte[] buffer, int size, IReadOnlyList<uint> key)
+        private static void EncryptChunk(byte[] buffer, int size, IReadOnlyList<uint> key)
         {
             int chunkCount = size / 256;
 
@@ -72,7 +72,7 @@ namespace GuJian3Library.Converters.XXTEA
             {
                 uint[] data = new uint[64];
                 Buffer.BlockCopy(buffer, i * 256, data, 0, 256);
-                DecryptBlock(data, 64, key);
+                EncryptBlock(data, 64, key);
                 Buffer.BlockCopy(data, 0, buffer, i * 256, 256);
             }
 
@@ -82,7 +82,7 @@ namespace GuJian3Library.Converters.XXTEA
             {
                 uint[] data = new uint[lastBlockLength];
                 Buffer.BlockCopy(buffer, chunkCount * 256, data, 0, lastBlockLength * 4);
-                DecryptBlock(data, lastBlockLength, key);
+                EncryptBlock(data, lastBlockLength, key);
                 Buffer.BlockCopy(data, 0, buffer, chunkCount * 256, lastBlockLength * 4);
             }
 
@@ -99,31 +99,30 @@ namespace GuJian3Library.Converters.XXTEA
 
         // XXTEA algorithm
         // See: https://en.wikipedia.org/wiki/XXTEA
-        private static void DecryptBlock(IList<uint> data, int blockLength, IReadOnlyList<uint> key)
+        private static void EncryptBlock(IList<uint> data, int blockLength, IReadOnlyList<uint> key)
         {
             const uint delta = 0x9E3779B9;
             uint rounds = (uint)(6 + (52 / blockLength));
-            uint sum = rounds * delta;
-            uint y = data[0];
-
+            uint sum = 0;
+            uint z = data[blockLength - 1];
             do
             {
+                sum += delta;
                 uint e = (sum >> 2) & 3;
-                for (int p = blockLength - 1; p >= 0; p--)
+                for (int p = 0; p < blockLength; p++)
                 {
-                    uint z = (p > 0) ? data[p - 1] : data[blockLength - 1];
+                    uint y = (p < blockLength - 1) ? data[p + 1] : data[0];
 
                     uint value1 = (z >> 5) ^ (y << 2);
                     uint value2 = (y >> 3) ^ (z << 4);
                     uint value3 = sum ^ y;
                     uint value4 = key[(int)((p & 3) ^ e)] ^ z;
 
-                    data[p] -= (value1 + value2) ^ (value3 + value4);
+                    data[p] += (value1 + value2) ^ (value3 + value4);
 
-                    y = data[p];
+                    z = data[p];
                 }
 
-                sum -= delta;
                 rounds--;
             }
             while (rounds > 0);
