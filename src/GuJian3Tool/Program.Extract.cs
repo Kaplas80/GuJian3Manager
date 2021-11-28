@@ -52,23 +52,35 @@ namespace GuJian3Tool
             }
         }
 
-        private static void Extract(Node root, string outputFolder, IDictionary<string, List<string>> fileNames)
+        private static void Extract(Node root, string outputFolder, IDictionary<string, List<string>> fileNames, bool extractAll = false)
         {
             foreach (Node node in Navigator.IterateNodes(root))
             {
-                if (!fileNames.ContainsKey(node.Name))
-                {
-                    continue;
-                }
+                List<string> files = new ();
 
-                List<string> files = fileNames[node.Name];
+                if (fileNames == null)
+                {
+                    files.Add(node.Name);
+                }
+                else if (!fileNames.ContainsKey(node.Name))
+                {
+                    if (!extractAll)
+                    {
+                        continue;
+                    }
+
+                    files.Add(node.Name);
+                }
+                else
+                {
+                    files.AddRange(fileNames[node.Name]);
+                }
 
                 node.TransformWith<GuJian3Library.Converters.Oodle.Decompress>();
 
                 foreach (string file in files)
                 {
                     Console.Write($"Extracting {file}... ");
-
                     string outputPath = Path.Join(outputFolder, file);
                     Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
 

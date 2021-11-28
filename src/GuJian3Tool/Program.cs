@@ -13,9 +13,10 @@ namespace GuJian3Tool
     {
         private static void Main(string[] args)
         {
-            ParserResult<object> parserResult = Parser.Default.ParseArguments<Options.Extract, Options.Info, Options.Decrypt>(args);
+            ParserResult<object> parserResult = Parser.Default.ParseArguments<Options.Extract, Options.ExtractSingle, Options.Info, Options.Decrypt>(args);
             parserResult
                 .WithParsed<Options.Extract>(Extract)
+                .WithParsed<Options.ExtractSingle>(ExtractSingle)
                 .WithParsed<Options.Info>(ShowInfo)
                 .WithParsed<Options.Decrypt>(Decrypt);
         }
