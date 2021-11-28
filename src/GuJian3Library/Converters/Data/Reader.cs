@@ -50,7 +50,7 @@ namespace GuJian3Library.Converters.Data
                 throw new FormatException("ZFS: Bad magic Id.");
             }
 
-            int nextChunk;
+            uint nextChunk;
             do
             {
                 string chunkMagicId = reader.ReadString(4);
@@ -60,18 +60,18 @@ namespace GuJian3Library.Converters.Data
                     throw new FormatException("ZFS: Bad magic chunk Id.");
                 }
 
-                nextChunk = reader.ReadInt32();
+                nextChunk = reader.ReadUInt32();
 
                 for (int i = 0; i < MaxFiles; i++)
                 {
                     byte[] hash = reader.ReadBytes(20);
                     string hashString = ToHexString(hash);
 
-                    int fileOffset = reader.ReadInt32();
-                    int fileCompressedSize = reader.ReadInt32();
+                    uint fileOffset = reader.ReadUInt32();
+                    uint fileCompressedSize = reader.ReadUInt32();
 
                     _ = reader.ReadUInt16(); // crc-16 of header (hash + offset + size)
-                    _ = reader.ReadUInt16(); // isActive??
+                    _ = reader.ReadUInt16(); // unknown (always 0x0100)
 
                     if (fileOffset == 0)
                     {
