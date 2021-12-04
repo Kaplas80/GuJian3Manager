@@ -116,8 +116,8 @@
   },
   "dev/Changelog.html": {
     "href": "dev/Changelog.html",
-    "title": "vNext (December 04, 2021) | GuJian3 Manager",
-    "keywords": "vNext (December 04, 2021) As part of this release we had 1 issue closed. Documentation #14 Update build.cake v1.0.0 (December 04, 2021) As part of this release we had 9 issues closed. bug #13 v1.0.0 release doesn't include executable enhancements #5 Use PleOps #6 Upgrade to .NET6 #7 Code refactor #8 Allow single data file extraction #9 Add XXTEA encryption #10 Replace files #11 Add checks #12 Fix CI/CD"
+    "title": "v1.0.0 (December 04, 2021) | GuJian3 Manager",
+    "keywords": "v1.0.0 (December 04, 2021) As part of this release we had 1 issue closed. Documentation #14 Update build.cake"
   },
   "guides/Contributing.html": {
     "href": "guides/Contributing.html",
