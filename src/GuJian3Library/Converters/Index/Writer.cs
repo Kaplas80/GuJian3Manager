@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Kaplas
+// Copyright (c) 2021 Kaplas
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,33 +18,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Tool.Options
+namespace GuJian3Library.Converters.Index
 {
-    using CommandLine;
+    using System;
+    using System.Collections.Generic;
+    using GuJian3Library.Formats;
+    using Yarhl.FileFormat;
+    using Yarhl.IO;
 
     /// <summary>
-    /// GuJian 3 data archive extract options.
+    /// Converter from IndexFile to BinaryFormat.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-single", HelpText = "Extract contents from a single GuJian 3 data file.")]
-    internal class ExtractSingle
+    public class Writer : IConverter<IndexFile, BinaryFormat>
     {
         /// <summary>
-        /// Gets or sets the archive path.
+        /// Writes a GuJian3 index file.
         /// </summary>
-        [Value(0, MetaName = "data file", Required = true, HelpText = "GuJian 3 data file path.")]
-        public string Path { get; set; }
+        /// <param name="source">The file in IndexFile format.</param>
+        /// <returns>The binary format.</returns>
+        public BinaryFormat Convert(IndexFile source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
-        /// <summary>
-        /// Gets or sets the output directory.
-        /// </summary>
-        [Value(1, MetaName = "path_to_extract\\", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+            var result = new BinaryFormat();
 
-        /// <summary>
-        /// Gets or sets the 303.idx path.
-        /// </summary>
-        [Option("index", Required = false, HelpText = "Path to 303.idx (optional)")]
-        public string IndexPath { get; set; }
+            var writer = new TextDataWriter(result.Stream);
+
+            foreach (KeyValuePair<string, string> kvp in source.Names)
+            {
+                writer.WriteLine($"{kvp.Value}\t{kvp.Key}");
+            }
+
+            return result;
+        }
     }
 }

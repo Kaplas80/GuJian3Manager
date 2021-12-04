@@ -18,33 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Tool.Options
+namespace GuJian3Library.Formats
 {
-    using CommandLine;
-
     /// <summary>
-    /// GuJian 3 data archive extract options.
+    /// Chunk of Oodle compressed data.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-single", HelpText = "Extract contents from a single GuJian 3 data file.")]
-    internal class ExtractSingle
+    public class OodleChunk
     {
         /// <summary>
-        /// Gets or sets the archive path.
+        /// Gets or sets the chunk uncompressed size.
         /// </summary>
-        [Value(0, MetaName = "data file", Required = true, HelpText = "GuJian 3 data file path.")]
-        public string Path { get; set; }
+        public int Size { get; set; }
 
         /// <summary>
-        /// Gets or sets the output directory.
+        /// Gets or sets the chunk compressed size.
         /// </summary>
-        [Value(1, MetaName = "path_to_extract\\", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        public int CompressedSize { get; set; }
 
         /// <summary>
-        /// Gets or sets the 303.idx path.
+        /// Gets or sets the chunk data.
         /// </summary>
-        [Option("index", Required = false, HelpText = "Path to 303.idx (optional)")]
-        public string IndexPath { get; set; }
+        public byte[] Data { get; set; }
     }
 }

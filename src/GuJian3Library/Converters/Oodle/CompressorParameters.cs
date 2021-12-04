@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Kaplas
+// Copyright (c) 2021 Kaplas
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -17,34 +17,39 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
-namespace GuJian3Tool.Options
+namespace GuJian3Library.Converters.Oodle
 {
-    using CommandLine;
+    using Yarhl.IO;
 
     /// <summary>
-    /// GuJian 3 data archive extract options.
+    /// Parameters for Oodle compressor.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-single", HelpText = "Extract contents from a single GuJian 3 data file.")]
-    internal class ExtractSingle
+    public class CompressorParameters
     {
         /// <summary>
-        /// Gets or sets the archive path.
+        /// Initializes a new instance of the <see cref="CompressorParameters"/> class.
         /// </summary>
-        [Value(0, MetaName = "data file", Required = true, HelpText = "GuJian 3 data file path.")]
-        public string Path { get; set; }
+        public CompressorParameters()
+        {
+            Compressor = OodleWrapper.OodleLZ_Compressor.OodleLZ_Compressor_None;
+            CompressionLevel = OodleWrapper.OodleLZ_CompressionLevel.OodleLZ_CompressionLevel_None;
+            OutputStream = null;
+        }
 
         /// <summary>
-        /// Gets or sets the output directory.
+        /// Gets or sets the compression algorithm type.
         /// </summary>
-        [Value(1, MetaName = "path_to_extract\\", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        public OodleWrapper.OodleLZ_Compressor Compressor { get; set; }
 
         /// <summary>
-        /// Gets or sets the 303.idx path.
+        /// Gets or sets the compression level.
         /// </summary>
-        [Option("index", Required = false, HelpText = "Path to 303.idx (optional)")]
-        public string IndexPath { get; set; }
+        public OodleWrapper.OodleLZ_CompressionLevel CompressionLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DataStream to write the file.
+        /// </summary>
+        /// <remarks>It can be null. In that case, it will be written in memory.</remarks>
+        public DataStream OutputStream { get; set; }
     }
 }

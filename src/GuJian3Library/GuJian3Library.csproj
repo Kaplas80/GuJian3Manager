@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Yarhl" />
     <PackageReference Include="Yarhl.Media" />
+    <PackageReference Include="Nito.HashAlgorithms" />
   </ItemGroup>
 
 </Project>
