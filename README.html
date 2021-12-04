@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>GuJian3Manager | GuJian3 Manager </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GuJian3Manager | GuJian3 Manager ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="images/logo_48.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="index.html" title="Home">Home</a>
+                      </li>
+                      <li>
+                          <a href="guides/First-Steps.html" title="Guides">Guides</a>
+                      </li>
+                      <li>
+                          <a href="dev/Changelog.html" title="API">API</a>
+                      </li>
+                      <li>
+                          <a href="https://github.com/Kaplas80/GuJian3Manager" title="GitHub">GitHub</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gujian3manager">GuJian3Manager</h1>
+
+<p>Tools for GuJian 3 files.</p>
+<p>Data files are compressed with oodle. You need to copy <code>oo2core_6_win64.dll</code> (included in the game) into the app folder.</p>
+<p>.xxx files are encrypted with XXTEA encryption.</p>
+<p>NOTE: If you want to translate the game strings, see the great work of <a href="https://github.com/eprilx/Gujian3TextEditor">eprilx</a> and <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">alanm</a></p>
+<h2 id="building-the-app">Building the app</h2>
+<pre><code>git clone https://github.com/Kaplas80/GuJian3Manager.git
+
+cd GuJian3Manager/src
+
+dotnet build
+</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="show-data-files-info">Show data files info</h3>
+<pre><code>GuJian3Tool.exe info &lt;path_to_303.idx&gt;
+</code></pre>
+<h3 id="extract-all-data-files">Extract all data files</h3>
+<pre><code>GuJian3Tool.exe extract &lt;path_to_303.idx&gt; &lt;output_directory&gt;
+</code></pre>
+<h3 id="extract-single-data-file">Extract single data file</h3>
+<pre><code>GuJian3Tool.exe extract-single &lt;path_to_dataXXX&gt; &lt;output_directory&gt; [--index &lt;path_to_303.idx&gt;]
+</code></pre>
+<p>Index path is optional, but if you don't use it, the files will be extracted without readable name.</p>
+<h3 id="add--replace-files-in-data-files">Add / Replace files in data files</h3>
+<pre><code>GuJian3Tool.exe build &lt;path_to_new_files&gt; &lt;path_to_303.idx&gt;
+</code></pre>
+<p>The new files have to have the full path to work properly. For example: to replace the english fonts in game, you have to place the files in:
+<code>&lt;some_path&gt;\asset\interface\Resource_en\font</code>
+and execute the app using:
+<code>GuJian3Tool.exe build some_path path\to\303.idx</code></p>
+<h3 id="decrypt-file">Decrypt file</h3>
+<pre><code>GuJian3Tool.exe decrypt &lt;path_to_xxx_file&gt; &lt;output_file&gt; [--key encryption_key]
+</code></pre>
+<p>Encryption key is optional.</p>
+<p>These 4 files has a unknown encryption key, so they can not be decrypted:</p>
+<ul>
+<li>asset\maps\m24\elems.xxx</li>
+<li>asset\interface\Resource\movie\EDtxt.xxx</li>
+<li>asset\interface\Resource\movie\OPtxt.xxx</li>
+<li>asset\interface\Resource_cht\movie\EDtxt.xxx</li>
+</ul>
+<h3 id="encrypt-file">Encrypt file</h3>
+<pre><code>GuJian3Tool.exe encrypt &lt;input_file&gt; &lt;output_file&gt; [--key encryption_key]
+</code></pre>
+<p>Encryption key is optional.</p>
+<h2 id="credits">Credits</h2>
+<ul>
+<li>Thanks to Pleonex for <a href="https://scenegate.github.io/Yarhl/">Yarhl</a> and for identifying XXTEA algorithm.</li>
+<li>Thanks to DARKSiDERS for finding all the encryption keys.</li>
+<li>Thanks to JKAnderson for the <a href="https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs">OodleWrapper</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Kaplas80/GuJian3Manager/blob/main/README.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright (c) 2021 Kaplas
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>
