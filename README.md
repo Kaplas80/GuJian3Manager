@@ -78,3 +78,4 @@ Encryption key is optional.
 
 - Thanks to Pleonex for [Yarhl](https://scenegate.github.io/Yarhl/) and for identifying XXTEA algorithm.
 - Thanks to DARKSiDERS for finding all the encryption keys.
+- Thanks to JKAnderson for the [OodleWrapper](https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs).

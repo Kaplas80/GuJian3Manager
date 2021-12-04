@@ -35,6 +35,18 @@ namespace GuJian3Tool
         {
             WriteHeader();
 
+            if (!HasOodleDll())
+            {
+                Console.WriteLine("ERROR: \"oo2core_6_win64.dll\" not found!!!!");
+                return;
+            }
+
+            if (!IsWindows())
+            {
+                Console.WriteLine("ERROR: This option only works in Windows");
+                return;
+            }
+
             if (!File.Exists(opts.IndexPath))
             {
                 Console.WriteLine($"ERROR: \"{opts.IndexPath}\" not found!!!!");

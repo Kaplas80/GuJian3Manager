@@ -22,6 +22,8 @@ namespace GuJian3Tool
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Runtime.InteropServices;
     using CommandLine;
     using GuJian3Library.Formats;
     using Yarhl.FileSystem;
@@ -804,6 +806,10 @@ namespace GuJian3Tool
             Console.WriteLine(CommandLine.Text.CopyrightInfo.Default);
             Console.WriteLine();
         }
+
+        private static bool HasOodleDll() => File.Exists("oo2core_6_win64.dll");
+
+        private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         private static IndexFile LoadFileNames(string idxPath)
         {
