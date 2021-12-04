@@ -17,53 +17,39 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
-namespace GuJian3Library.Converters.Index
+namespace GuJian3Library.Converters.Oodle
 {
-    using System;
-    using System.Collections.Generic;
-    using GuJian3Library.Formats;
-    using Yarhl.FileFormat;
     using Yarhl.IO;
 
     /// <summary>
-    /// Converter from BinaryFormat to IndexFile.
+    /// Parameters for Oodle compressor.
     /// </summary>
-    public class Reader : IConverter<BinaryFormat, IndexFile>
+    public class CompressorParameters
     {
         /// <summary>
-        /// Reads a GuJian3 index file.
+        /// Initializes a new instance of the <see cref="CompressorParameters"/> class.
         /// </summary>
-        /// <param name="source">The file in BinaryFormat.</param>
-        /// <returns>The file.</returns>
-        public IndexFile Convert(BinaryFormat source)
+        public CompressorParameters()
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            source.Stream.Position = 0;
-
-            var result = new IndexFile();
-
-            var reader = new TextDataReader(source.Stream);
-
-            while (!source.Stream.EndOfStream)
-            {
-                string line = reader.ReadLine();
-                string[] split = line.Split('\t');
-
-                if (!result.Hashes.ContainsKey(split[0]))
-                {
-                    result.Hashes[split[0]] = new List<string>();
-                }
-
-                result.Hashes[split[0]].Add(split[1]);
-                result.Names[split[1]] = split[0];
-            }
-
-            return result;
+            Compressor = OodleWrapper.OodleLZ_Compressor.OodleLZ_Compressor_None;
+            CompressionLevel = OodleWrapper.OodleLZ_CompressionLevel.OodleLZ_CompressionLevel_None;
+            OutputStream = null;
         }
+
+        /// <summary>
+        /// Gets or sets the compression algorithm type.
+        /// </summary>
+        public OodleWrapper.OodleLZ_Compressor Compressor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the compression level.
+        /// </summary>
+        public OodleWrapper.OodleLZ_CompressionLevel CompressionLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the DataStream to write the file.
+        /// </summary>
+        /// <remarks>It can be null. In that case, it will be written in memory.</remarks>
+        public DataStream OutputStream { get; set; }
     }
 }

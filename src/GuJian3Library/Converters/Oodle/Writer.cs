@@ -18,52 +18,60 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Library.Converters.Index
+namespace GuJian3Library.Converters.Oodle
 {
     using System;
-    using System.Collections.Generic;
     using GuJian3Library.Formats;
     using Yarhl.FileFormat;
     using Yarhl.IO;
 
     /// <summary>
-    /// Converter from BinaryFormat to IndexFile.
+    /// Writes Oodle compressed files used in GuJian 3.
     /// </summary>
-    public class Reader : IConverter<BinaryFormat, IndexFile>
+    public class Writer : IConverter<OodleFile, BinaryFormat>
     {
         /// <summary>
-        /// Reads a GuJian3 index file.
+        /// Writes an Oodle compressed BinaryFormat.
         /// </summary>
-        /// <param name="source">The file in BinaryFormat.</param>
-        /// <returns>The file.</returns>
-        public IndexFile Convert(BinaryFormat source)
+        /// <param name="source">Compressed format.</param>
+        /// <returns>The binary.</returns>
+        public BinaryFormat Convert(OodleFile source)
         {
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
 
-            source.Stream.Position = 0;
+            var dest = new BinaryFormat();
 
-            var result = new IndexFile();
+            var writer = new DataWriter(dest.Stream);
 
-            var reader = new TextDataReader(source.Stream);
+            writer.Write(source.Size);
+            writer.Write(source.Date);
+            writer.Write(source.CompressedSize);
+            writer.Write(source.SeekChunkLength);
+            writer.Write(source.Compression);
+            writer.Write(source.Crc16);
 
-            while (!source.Stream.EndOfStream)
+            if (source.Compression == 0)
             {
-                string line = reader.ReadLine();
-                string[] split = line.Split('\t');
-
-                if (!result.Hashes.ContainsKey(split[0]))
+                writer.Write(source.Chunks[0].Data);
+            }
+            else
+            {
+                for (int i = 0; i < source.Chunks.Count; i++)
                 {
-                    result.Hashes[split[0]] = new List<string>();
+                    writer.Write(source.Chunks[i].CompressedSize);
                 }
 
-                result.Hashes[split[0]].Add(split[1]);
-                result.Names[split[1]] = split[0];
+                for (int i = 0; i < source.Chunks.Count; i++)
+                {
+                    writer.Write(source.Chunks[i].Size);
+                    writer.Write(source.Chunks[i].Data);
+                }
             }
 
-            return result;
+            return dest;
         }
     }
 }

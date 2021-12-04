@@ -58,16 +58,18 @@ namespace GuJian3Tool
                 }
             }
 
-            IDictionary<string, List<string>> fileNames = !string.IsNullOrEmpty(opts.IndexPath) ? LoadFileNames(opts.IndexPath) : null;
+            IndexFile index = !string.IsNullOrEmpty(opts.IndexPath) ? LoadFileNames(opts.IndexPath) : null;
 
             Directory.CreateDirectory(opts.OutputDirectory);
 
             Console.Write($"Loading '{opts.Path}' (this may take a while)... ");
             using Node archive = NodeFactory.FromFile(opts.Path);
             archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
+            archive.TransformWith<GuJian3Library.Converters.Data.Writer>();
+            archive.Stream.WriteTo(opts.Path + ".test");
             Console.WriteLine("DONE!");
 
-            Extract(archive, opts.OutputDirectory, fileNames, true);
+            Extract(archive, opts.OutputDirectory, index, true);
         }
     }
 }

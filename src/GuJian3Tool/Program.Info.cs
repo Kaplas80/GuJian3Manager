@@ -42,7 +42,10 @@ namespace GuJian3Tool
                 return;
             }
 
-            IDictionary<string, List<string>> fileNames = LoadFileNames(opts.IndexPath);
+            IndexFile index = LoadFileNames(opts.IndexPath);
+
+            BinaryFormat newIndex = (BinaryFormat)Yarhl.FileFormat.ConvertFormat.With<GuJian3Library.Converters.Index.Writer>(index);
+            newIndex.Stream.WriteTo(opts.IndexPath + ".txt");
 
             string dataDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(opts.IndexPath), ".."));
             string[] dataFiles = Directory.GetFiles(dataDirectory, "data???");
@@ -52,20 +55,20 @@ namespace GuJian3Tool
                 using Node archive = NodeFactory.FromFile(dataFile);
                 archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
 
-                ShowInfo(archive, fileNames);
+                ShowInfo(archive, index);
             }
         }
 
-        private static void ShowInfo(Node root, IDictionary<string, List<string>> fileNames)
+        private static void ShowInfo(Node root, IndexFile index)
         {
             foreach (Node node in Navigator.IterateNodes(root))
             {
-                if (!fileNames.ContainsKey(node.Name))
+                if (!index.Hashes.ContainsKey(node.Name))
                 {
                     continue;
                 }
 
-                List<string> files = fileNames[node.Name];
+                List<string> files = index.Hashes[node.Name];
 
                 long fileOffset = node.Stream.Offset;
                 long fileSize = node.Stream.Length;

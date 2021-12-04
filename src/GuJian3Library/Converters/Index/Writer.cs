@@ -27,40 +27,29 @@ namespace GuJian3Library.Converters.Index
     using Yarhl.IO;
 
     /// <summary>
-    /// Converter from BinaryFormat to IndexFile.
+    /// Converter from IndexFile to BinaryFormat.
     /// </summary>
-    public class Reader : IConverter<BinaryFormat, IndexFile>
+    public class Writer : IConverter<IndexFile, BinaryFormat>
     {
         /// <summary>
-        /// Reads a GuJian3 index file.
+        /// Writes a GuJian3 index file.
         /// </summary>
-        /// <param name="source">The file in BinaryFormat.</param>
-        /// <returns>The file.</returns>
-        public IndexFile Convert(BinaryFormat source)
+        /// <param name="source">The file in IndexFile format.</param>
+        /// <returns>The binary format.</returns>
+        public BinaryFormat Convert(IndexFile source)
         {
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
 
-            source.Stream.Position = 0;
+            var result = new BinaryFormat();
 
-            var result = new IndexFile();
+            var writer = new TextDataWriter(result.Stream);
 
-            var reader = new TextDataReader(source.Stream);
-
-            while (!source.Stream.EndOfStream)
+            foreach (KeyValuePair<string, string> kvp in source.Names)
             {
-                string line = reader.ReadLine();
-                string[] split = line.Split('\t');
-
-                if (!result.Hashes.ContainsKey(split[0]))
-                {
-                    result.Hashes[split[0]] = new List<string>();
-                }
-
-                result.Hashes[split[0]].Add(split[1]);
-                result.Names[split[1]] = split[0];
+                writer.WriteLine($"{kvp.Value}\t{kvp.Key}");
             }
 
             return result;

@@ -20,31 +20,24 @@
 
 namespace GuJian3Library.Formats
 {
-    using System.Collections.Generic;
-    using Yarhl.FileFormat;
-
     /// <summary>
-    /// GuJian 3 index file. Contains SHA-1 file hashes and names.
+    /// Chunk of Oodle compressed data.
     /// </summary>
-    public class IndexFile : IFormat
+    public class OodleChunk
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IndexFile"/> class.
+        /// Gets or sets the chunk uncompressed size.
         /// </summary>
-        public IndexFile()
-        {
-            Hashes = new Dictionary<string, List<string>>();
-            Names = new Dictionary<string, string>();
-        }
+        public int Size { get; set; }
 
         /// <summary>
-        /// Gets the file hashes dictionary.
+        /// Gets or sets the chunk compressed size.
         /// </summary>
-        public IDictionary<string, List<string>> Hashes { get; }
+        public int CompressedSize { get; set; }
 
         /// <summary>
-        /// Gets the file names dictionary.
+        /// Gets or sets the chunk data.
         /// </summary>
-        public IDictionary<string, string> Names { get; }
+        public byte[] Data { get; set; }
     }
 }

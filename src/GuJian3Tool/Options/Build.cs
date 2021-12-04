@@ -18,33 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Library.Formats
+namespace GuJian3Tool.Options
 {
-    using System.Collections.Generic;
-    using Yarhl.FileFormat;
+    using CommandLine;
 
     /// <summary>
-    /// GuJian 3 index file. Contains SHA-1 file hashes and names.
+    /// GuJian 3 data archive extract options.
     /// </summary>
-    public class IndexFile : IFormat
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
+    [Verb("build", HelpText = "Build new GuJian 3 data files.")]
+    internal class Build
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IndexFile"/> class.
+        /// Gets or sets the input directory.
         /// </summary>
-        public IndexFile()
-        {
-            Hashes = new Dictionary<string, List<string>>();
-            Names = new Dictionary<string, string>();
-        }
+        [Value(0, MetaName = "input_path\\", Required = true, HelpText = "Input directory.")]
+        public string InputDirectory { get; set; }
 
         /// <summary>
-        /// Gets the file hashes dictionary.
+        /// Gets or sets the archive path.
         /// </summary>
-        public IDictionary<string, List<string>> Hashes { get; }
-
-        /// <summary>
-        /// Gets the file names dictionary.
-        /// </summary>
-        public IDictionary<string, string> Names { get; }
+        [Value(1, MetaName = "idx file", Required = true, HelpText = "GuJian 3 idx file path.")]
+        public string IndexPath { get; set; }
     }
 }

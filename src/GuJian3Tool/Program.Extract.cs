@@ -53,7 +53,7 @@ namespace GuJian3Tool
                 }
             }
 
-            IDictionary<string, List<string>> fileNames = LoadFileNames(opts.IndexPath);
+            IndexFile index = LoadFileNames(opts.IndexPath);
 
             Directory.CreateDirectory(opts.OutputDirectory);
 
@@ -65,21 +65,21 @@ namespace GuJian3Tool
                 archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
                 Console.WriteLine("DONE!");
 
-                Extract(archive, opts.OutputDirectory, fileNames);
+                Extract(archive, opts.OutputDirectory, index);
             }
         }
 
-        private static void Extract(Node root, string outputFolder, IDictionary<string, List<string>> fileNames, bool extractAll = false)
+        private static void Extract(Node root, string outputFolder, IndexFile index, bool extractAll = false)
         {
             foreach (Node node in Navigator.IterateNodes(root))
             {
                 List<string> files = new ();
 
-                if (fileNames == null)
+                if (index == null)
                 {
                     files.Add(node.Name);
                 }
-                else if (!fileNames.ContainsKey(node.Name))
+                else if (!index.Hashes.ContainsKey(node.Name))
                 {
                     if (!extractAll)
                     {
@@ -90,9 +90,10 @@ namespace GuJian3Tool
                 }
                 else
                 {
-                    files.AddRange(fileNames[node.Name]);
+                    files.AddRange(index.Hashes[node.Name]);
                 }
 
+                node.TransformWith<GuJian3Library.Converters.Oodle.Reader>();
                 node.TransformWith<GuJian3Library.Converters.Oodle.Decompress>();
 
                 foreach (string file in files)
@@ -107,18 +108,6 @@ namespace GuJian3Tool
 
                 node.Dispose();
             }
-        }
-
-        private static IDictionary<string, List<string>> LoadFileNames(string idxPath)
-        {
-            Console.Write("Loading index file... ");
-            using Node index = NodeFactory.FromFile(idxPath);
-            index.TransformWith<GuJian3Library.Converters.Oodle.Decompress>();
-            index.TransformWith<GuJian3Library.Converters.Index.Reader>();
-            IDictionary<string, List<string>> result = index.GetFormatAs<IndexFile>().Dictionary;
-            Console.WriteLine("DONE!");
-
-            return result;
         }
     }
 }
