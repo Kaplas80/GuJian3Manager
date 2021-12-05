@@ -88,7 +88,7 @@ namespace GuJian3Library.Converters.Oodle
                     chunk.CompressedSize = reader.ReadInt32();
                     chunk.Data = new byte[chunk.CompressedSize - 4];
 
-                    source.Stream.PushToPosition(dataOffset, System.IO.SeekOrigin.Begin);
+                    source.Stream.PushToPosition(dataOffset);
 
                     chunk.Size = reader.ReadInt32();
                     source.Stream.Read(chunk.Data, 0, chunk.CompressedSize - 4);
