@@ -91,11 +91,10 @@ namespace GuJian3Library.Converters.Data
                     writer.Write(Crc16(hash, fileOffset, (uint)n.Stream.Length));
                     writer.Write((ushort)0x0100);
 
-                    long currentPos = writer.Stream.Position;
-                    writer.Stream.Position = fileOffset;
+                    writer.Stream.PushToPosition(fileOffset);
                     n.Stream.WriteTo(writer.Stream);
                     fileOffset = (int)writer.Stream.Position;
-                    writer.Stream.Position = currentPos;
+                    writer.Stream.PopPosition();
 
                     currentNode++;
                 }
