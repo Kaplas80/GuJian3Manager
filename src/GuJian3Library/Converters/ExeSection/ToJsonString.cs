@@ -22,6 +22,7 @@ namespace GuJian3Library.Converters.ExeSection
 {
     using System;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Text;
     using GuJian3Library.Formats;
     using Yarhl.FileFormat;
@@ -64,7 +65,7 @@ namespace GuJian3Library.Converters.ExeSection
             {
                 try
                 {
-                    string value = ReadData(reader, 0);
+                    string value = ReadData(reader);
                     sb.Append(value);
                 }
                 catch (NotImplementedException)
@@ -79,23 +80,21 @@ namespace GuJian3Library.Converters.ExeSection
             return result;
         }
 
-        private string ReadData(DataReader reader, int indent)
+        private string ReadData(DataReader reader)
         {
             byte typeId = reader.ReadByte();
-            return ReadData(reader, typeId, indent);
+            return ReadData(reader, typeId, false);
         }
 
-        private string ReadData(DataReader reader, byte typeId, int indent)
+        private string ReadData(DataReader reader, byte typeId, bool isKey)
         {
             var result = new StringBuilder();
-            string spacesPrev = new string(' ', indent * 2);
-            string spaces = new string(' ', (indent + 1) * 2);
 
             switch (typeId)
             {
                 case 0x00: // nil???
                     {
-                        result.Append("nil");
+                        result.Append("{}");
                     }
 
                     break;
@@ -117,7 +116,14 @@ namespace GuJian3Library.Converters.ExeSection
                 case 0x03: // byte
                     {
                         byte value = reader.ReadByte();
-                        result.Append(value);
+                        if (isKey)
+                        {
+                            result.Append('\"').Append(value).Append('\"');
+                        }
+                        else
+                        {
+                            result.Append(value);
+                        }
                     }
 
                     break;
@@ -125,7 +131,14 @@ namespace GuJian3Library.Converters.ExeSection
                 case 0x04: // short
                     {
                         short value = reader.ReadInt16();
-                        result.Append(value);
+                        if (isKey)
+                        {
+                            result.Append('\"').Append(value).Append('\"');
+                        }
+                        else
+                        {
+                            result.Append(value);
+                        }
                     }
 
                     break;
@@ -133,7 +146,14 @@ namespace GuJian3Library.Converters.ExeSection
                 case 0x05: // int
                     {
                         int value = reader.ReadInt32();
-                        result.Append(value);
+                        if (isKey)
+                        {
+                            result.Append('\"').Append(value).Append('\"');
+                        }
+                        else
+                        {
+                            result.Append(value);
+                        }
                     }
 
                     break;
@@ -141,7 +161,14 @@ namespace GuJian3Library.Converters.ExeSection
                 case 0x06: // long
                     {
                         long value = reader.ReadInt64();
-                        result.Append(value);
+                        if (isKey)
+                        {
+                            result.Append('\"').Append(value).Append('\"');
+                        }
+                        else
+                        {
+                            result.Append(value);
+                        }
                     }
 
                     break;
@@ -149,7 +176,14 @@ namespace GuJian3Library.Converters.ExeSection
                 case 0x07: // double
                     {
                         double value = reader.ReadDouble();
-                        result.Append(value);
+                        if (isKey)
+                        {
+                            result.Append('\"').Append(value.ToString(CultureInfo.InvariantCulture)).Append('\"');
+                        }
+                        else
+                        {
+                            result.Append(value.ToString(CultureInfo.InvariantCulture));
+                        }
                     }
 
                     break;
@@ -158,7 +192,7 @@ namespace GuJian3Library.Converters.ExeSection
                     {
                         int strLen = reader.ReadByte();
                         string str = reader.ReadString(strLen);
-                        result.Append($"\"{str.Replace("\n", "\\n")}\"");
+                        result.Append('\"').Append(Escape(str)).Append('\"');
                     }
 
                     break;
@@ -167,73 +201,63 @@ namespace GuJian3Library.Converters.ExeSection
                     {
                         int strLen = reader.ReadUInt16();
                         string str = reader.ReadString(strLen);
-                        result.Append($"\"{str.Replace("\n", "\\n")}\"");
+                        result.Append('\"').Append(Escape(str)).Append('\"');
                     }
 
                     break;
 
                 case 0x0B: // Object Map
                     {
-                        int arrayLen = reader.ReadInt32();
+                        int refsLen = reader.ReadInt32();
 
-                        if (arrayLen > 0)
+                        var refs = new StringBuilder();
+                        refs.Append("\"refs\": [");
+                        if (refsLen > 0)
                         {
-                            result.Append("[ ");
-                            for (int i = 0; i < arrayLen - 1; i++)
+                            refs.Append(ReadData(reader));
+                            for (int i = 1; i < refsLen; i++)
                             {
-                                byte id2 = reader.ReadByte();
-                                result.Append(ReadData(reader, id2, indent));
-                                if (id2 != 0x0B)
-                                {
-                                    result.Append($", ");
-                                }
+                                refs.Append(", ").Append(ReadData(reader));
                             }
-
-                            result.Append(ReadData(reader, indent));
-                            result.Append(" ]");
                         }
 
+                        refs.Append(']');
+
                         byte id = reader.ReadByte();
-                        result.Append("{");
-                        int count = 0;
+                        result.Append('{');
+                        result.Append(refs);
 
                         while (id != 0)
                         {
-                            result.Append($"\n{spaces}");
-                            string key = ReadData(reader, id, indent + 1);
-                            result.Append(key);
-                            result.Append(" : ");
+                            string key = ReadData(reader, id, true);
                             id = reader.ReadByte();
-                            string value = ReadData(reader, id, indent + 1);
+                            string value = ReadData(reader, id, false);
+
+                            result.Append(',');
+                            result.Append(key);
+                            result.Append(": ");
                             result.Append(value);
 
-                            if (id != 0x0B)
-                            {
-                                result.Append($", ");
-                            }
-
                             id = reader.ReadByte();
-                            count++;
                         }
 
-                        if (count > 0)
-                        {
-                            result.Append($"\n{spacesPrev}");
-                        }
-
-                        result.Append($"}}, ");
+                        result.Append('}');
                     }
 
                     break;
 
                 case 0x0D: // Function??
                     {
-                        string name = ReadData(reader, indent);
+                        string name = ReadData(reader);
+                        string parameters = ReadData(reader);
+
+                        result.Append('{');
+                        result.Append("\"name\": ");
                         result.Append(name);
-                        result.Append("(");
-                        string parameters = ReadData(reader, indent);
+                        result.Append(',');
+                        result.Append("\"parameters\": ");
                         result.Append(parameters);
-                        result.Append("),\n");
+                        result.Append('}');
                     }
 
                     break;
@@ -259,6 +283,15 @@ namespace GuJian3Library.Converters.ExeSection
             }
 
             return result.ToString();
+        }
+
+        private static string Escape(string original)
+        {
+            string result = original;
+            result = result.Replace("\\", "\\\\");
+            result = result.Replace("\n", "\\n");
+            result = result.Replace("\"", "\\\"");
+            return result;
         }
     }
 }

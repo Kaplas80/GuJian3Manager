@@ -24,6 +24,7 @@ namespace GuJian3Tool
     using System.Collections.Generic;
     using System.IO;
     using GuJian3Library.Formats;
+    using Newtonsoft.Json;
     using Yarhl.FileSystem;
 
     /// <summary>
@@ -58,6 +59,7 @@ namespace GuJian3Tool
 
             JsonString format = n.GetFormatAs<JsonString>();
             File.WriteAllText(opts.Path + ".json", format.Value);
+            object obj = JsonConvert.DeserializeObject(format.Value);
         }
     }
 }
