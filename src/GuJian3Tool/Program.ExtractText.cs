@@ -58,8 +58,9 @@ namespace GuJian3Tool
             n.TransformWith<GuJian3Library.Converters.ExeSection.ToJsonString>();
 
             JsonString format = n.GetFormatAs<JsonString>();
-            File.WriteAllText(opts.Path + ".json", format.Value);
-            object obj = JsonConvert.DeserializeObject(format.Value);
+
+            string obj = JsonConvert.SerializeObject(format.Value);
+            File.WriteAllText(opts.Path + ".json", obj);
         }
     }
 }

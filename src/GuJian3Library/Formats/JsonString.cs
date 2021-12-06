@@ -20,10 +20,11 @@
 
 namespace GuJian3Library.Formats
 {
+    using System.Dynamic;
     using Yarhl.FileFormat;
 
     public class JsonString : IFormat
     {
-        public string Value { get; set; }
+        public dynamic Value { get; set; }
     }
 }
