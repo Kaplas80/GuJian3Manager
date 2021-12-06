@@ -788,7 +788,8 @@ namespace GuJian3Tool
                 Options.ExtractSingle,
                 Options.Build,
                 Options.Decrypt,
-                Options.Encrypt
+                Options.Encrypt,
+                Options.ExtractText
             >(args);
 
             parserResult
@@ -797,7 +798,8 @@ namespace GuJian3Tool
                 .WithParsed<Options.ExtractSingle>(ExtractSingle)
                 .WithParsed<Options.Build>(Build)
                 .WithParsed<Options.Decrypt>(Decrypt)
-                .WithParsed<Options.Encrypt>(Encrypt);
+                .WithParsed<Options.Encrypt>(Encrypt)
+                .WithParsed<Options.ExtractText>(ExtractText);
         }
 
         private static void WriteHeader()
