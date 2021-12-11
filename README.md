@@ -6,8 +6,6 @@ Data files are compressed with oodle. You need to copy `oo2core_6_win64.dll` (in
 
 .xxx files are encrypted with XXTEA encryption.
 
-NOTE: If you want to translate the game strings, see the great work of [eprilx](https://github.com/eprilx/Gujian3TextEditor) and [alanm](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511)
-
 ## Building the app
 
 ```
@@ -74,8 +72,40 @@ GuJian3Tool.exe encrypt <input_file> <output_file> [--key encryption_key]
 
 Encryption key is optional.
 
+### Extract game data to JSON
+
+```
+GuJian3Tool.exe extract-json <path_to_text.bin> <output_json_file>
+```
+
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+
+### Build game data from JSON
+
+```
+GuJian3Tool.exe build-json <input_json_file> <output_file>
+```
+
+### Extract game strings to PO
+
+```
+GuJian3Tool.exe extract-text <path_to_text.bin> <output_directory>
+```
+
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+
+### Replace strings in game data
+
+```
+GuJian3Tool.exe build-text <path_to_text.bin> <po_directory> <output_file>
+```
+
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+
 ## Credits
 
 - Thanks to Pleonex for [Yarhl](https://scenegate.github.io/Yarhl/) and for identifying XXTEA algorithm.
 - Thanks to DARKSiDERS for finding all the encryption keys.
 - Thanks to JKAnderson for the [OodleWrapper](https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs).
+- Thanks to eprilx for the [Gujian3TextEditor](https://github.com/eprilx/Gujian3TextEditor).
+- Thanks to alanm for the [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).

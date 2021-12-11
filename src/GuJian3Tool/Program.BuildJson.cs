@@ -21,18 +21,17 @@
 namespace GuJian3Tool
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using GuJian3Library.Converters.XXTEA;
-    using Yarhl.FileSystem;
+    using GuJian3Library.Formats;
+    using Newtonsoft.Json;
+    using Yarhl.IO;
 
     /// <summary>
-    /// Encrypt contents functionality.
+    /// Build contents functionality.
     /// </summary>
     internal static partial class Program
     {
-        private static void Encrypt(Options.Encrypt opts)
+        private static void BuildJson(Options.BuildJson opts)
         {
             WriteHeader();
 
@@ -54,31 +53,18 @@ namespace GuJian3Tool
                 }
             }
 
-            string encryptionKey = string.Empty;
-            if (!string.IsNullOrEmpty(opts.Key))
-            {
-                encryptionKey = opts.Key;
-            }
-            else
-            {
-                KeyValuePair<string, string> kvp = Keys.FirstOrDefault(x => opts.InputFile.EndsWith(x.Key, StringComparison.InvariantCultureIgnoreCase));
-                if (!kvp.Equals(default(KeyValuePair<string, string>)))
-                {
-                    encryptionKey = kvp.Value;
-                }
-            }
+            JsonSerializer serializer = new ();
+            serializer.Formatting = Formatting.Indented;
+            serializer.TypeNameHandling = TypeNameHandling.Auto;
 
-            if (string.IsNullOrEmpty(encryptionKey))
-            {
-                Console.WriteLine("ERROR: Encryption key not found!!");
-                return;
-            }
+            Console.Write("Reading JSON...");
+            using StreamReader file = File.OpenText(opts.InputFile);
+            GameDataFormat newFormat = (GameDataFormat)serializer.Deserialize(file, typeof(GameDataFormat));
+            Console.WriteLine(" DONE!");
 
-            Console.Write("Encrypting...");
-
-            using Node file = NodeFactory.FromFile(opts.InputFile);
-            file.TransformWith<Encrypt, string>(encryptionKey);
-            file.Stream.WriteTo(opts.OutputFile);
+            Console.Write("Writing...");
+            using BinaryFormat bin = (BinaryFormat)Yarhl.FileFormat.ConvertFormat.With<GuJian3Library.Converters.ExeSection.Writer>(newFormat);
+            bin.Stream.WriteTo(opts.OutputFile);
             Console.WriteLine(" DONE!");
         }
     }

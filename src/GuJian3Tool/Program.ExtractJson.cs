@@ -21,18 +21,17 @@
 namespace GuJian3Tool
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using GuJian3Library.Converters.XXTEA;
+    using GuJian3Library.Formats;
+    using Newtonsoft.Json;
     using Yarhl.FileSystem;
 
     /// <summary>
-    /// Encrypt contents functionality.
+    /// Extract contents functionality.
     /// </summary>
     internal static partial class Program
     {
-        private static void Encrypt(Options.Encrypt opts)
+        private static void ExtractJson(Options.ExtractJson opts)
         {
             WriteHeader();
 
@@ -54,31 +53,19 @@ namespace GuJian3Tool
                 }
             }
 
-            string encryptionKey = string.Empty;
-            if (!string.IsNullOrEmpty(opts.Key))
-            {
-                encryptionKey = opts.Key;
-            }
-            else
-            {
-                KeyValuePair<string, string> kvp = Keys.FirstOrDefault(x => opts.InputFile.EndsWith(x.Key, StringComparison.InvariantCultureIgnoreCase));
-                if (!kvp.Equals(default(KeyValuePair<string, string>)))
-                {
-                    encryptionKey = kvp.Value;
-                }
-            }
+            Console.Write("Reading dump...");
+            using Node n = NodeFactory.FromFile(opts.InputFile);
+            n.TransformWith<GuJian3Library.Converters.ExeSection.Reader>();
+            Console.WriteLine(" DONE!");
 
-            if (string.IsNullOrEmpty(encryptionKey))
-            {
-                Console.WriteLine("ERROR: Encryption key not found!!");
-                return;
-            }
+            GameDataFormat format = n.GetFormatAs<GameDataFormat>();
+            JsonSerializer serializer = new ();
+            serializer.Formatting = Formatting.Indented;
+            serializer.TypeNameHandling = TypeNameHandling.Auto;
 
-            Console.Write("Encrypting...");
-
-            using Node file = NodeFactory.FromFile(opts.InputFile);
-            file.TransformWith<Encrypt, string>(encryptionKey);
-            file.Stream.WriteTo(opts.OutputFile);
+            Console.Write("Writing JSON...");
+            using StreamWriter file = File.CreateText(opts.OutputFile);
+            serializer.Serialize(file, format);
             Console.WriteLine(" DONE!");
         }
     }

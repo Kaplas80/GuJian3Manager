@@ -23,22 +23,29 @@ namespace GuJian3Tool
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using GuJian3Library.Converters.XXTEA;
+    using GuJian3Library.Formats;
     using Yarhl.FileSystem;
+    using Yarhl.IO;
+    using Yarhl.Media.Text;
 
     /// <summary>
-    /// Encrypt contents functionality.
+    /// Rebuild strings functionality.
     /// </summary>
     internal static partial class Program
     {
-        private static void Encrypt(Options.Encrypt opts)
+        private static void BuildText(Options.BuildText opts)
         {
             WriteHeader();
 
             if (!File.Exists(opts.InputFile))
             {
                 Console.WriteLine($"ERROR: \"{opts.InputFile}\" not found!!!!");
+                return;
+            }
+
+            if (!Directory.Exists(opts.InputDirectory))
+            {
+                Console.WriteLine($"ERROR: \"{opts.InputDirectory}\" not found!!!!");
                 return;
             }
 
@@ -54,31 +61,32 @@ namespace GuJian3Tool
                 }
             }
 
-            string encryptionKey = string.Empty;
-            if (!string.IsNullOrEmpty(opts.Key))
+            Dictionary<string, string> newStrings = new Dictionary<string, string>();
+
+            Console.Write("Reading PO files...");
+            using Node poNodes = NodeFactory.FromDirectory(opts.InputDirectory, "*.po", FileOpenMode.Read);
+            foreach (Node poNode in poNodes.Children)
             {
-                encryptionKey = opts.Key;
-            }
-            else
-            {
-                KeyValuePair<string, string> kvp = Keys.FirstOrDefault(x => opts.InputFile.EndsWith(x.Key, StringComparison.InvariantCultureIgnoreCase));
-                if (!kvp.Equals(default(KeyValuePair<string, string>)))
+                poNode.TransformWith<Binary2Po>();
+                Po po = poNode.GetFormatAs<Po>();
+
+                foreach (PoEntry poEntry in po.Entries)
                 {
-                    encryptionKey = kvp.Value;
+                    newStrings.Add(poEntry.Context, poEntry.Translated);
                 }
             }
 
-            if (string.IsNullOrEmpty(encryptionKey))
-            {
-                Console.WriteLine("ERROR: Encryption key not found!!");
-                return;
-            }
+            Console.WriteLine(" DONE!");
 
-            Console.Write("Encrypting...");
+            Console.Write("Reading original dump and replacing strings...");
+            using Node n = NodeFactory.FromFile(opts.InputFile);
+            n.TransformWith<GuJian3Library.Converters.ExeSection.Reader, Dictionary<string, string>>(newStrings);
+            GameDataFormat format = n.GetFormatAs<GameDataFormat>();
+            Console.WriteLine(" DONE!");
 
-            using Node file = NodeFactory.FromFile(opts.InputFile);
-            file.TransformWith<Encrypt, string>(encryptionKey);
-            file.Stream.WriteTo(opts.OutputFile);
+            Console.Write("Writing...");
+            using BinaryFormat bin = (BinaryFormat)Yarhl.FileFormat.ConvertFormat.With<GuJian3Library.Converters.ExeSection.Writer>(format);
+            bin.Stream.WriteTo(opts.OutputFile);
             Console.WriteLine(" DONE!");
         }
     }
