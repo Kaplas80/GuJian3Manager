@@ -48,6 +48,66 @@ references:
   isSpec: "True"
   fullName: GuJian3Library.Converters.Data.Writer.Convert
   nameWithType: Writer.Convert
+- uid: GuJian3Library.Converters.ExeSection
+  name: GuJian3Library.Converters.ExeSection
+  href: api/GuJian3Library.Converters.ExeSection.html
+  commentId: N:GuJian3Library.Converters.ExeSection
+  fullName: GuJian3Library.Converters.ExeSection
+  nameWithType: GuJian3Library.Converters.ExeSection
+- uid: GuJian3Library.Converters.ExeSection.Reader
+  name: Reader
+  href: api/GuJian3Library.Converters.ExeSection.Reader.html
+  commentId: T:GuJian3Library.Converters.ExeSection.Reader
+  fullName: GuJian3Library.Converters.ExeSection.Reader
+  nameWithType: Reader
+- uid: GuJian3Library.Converters.ExeSection.Reader.Convert(BinaryFormat)
+  name: Convert(BinaryFormat)
+  href: api/GuJian3Library.Converters.ExeSection.Reader.html#GuJian3Library_Converters_ExeSection_Reader_Convert_BinaryFormat_
+  commentId: M:GuJian3Library.Converters.ExeSection.Reader.Convert(BinaryFormat)
+  fullName: GuJian3Library.Converters.ExeSection.Reader.Convert(BinaryFormat)
+  nameWithType: Reader.Convert(BinaryFormat)
+- uid: GuJian3Library.Converters.ExeSection.Reader.Convert*
+  name: Convert
+  href: api/GuJian3Library.Converters.ExeSection.Reader.html#GuJian3Library_Converters_ExeSection_Reader_Convert_
+  commentId: Overload:GuJian3Library.Converters.ExeSection.Reader.Convert
+  isSpec: "True"
+  fullName: GuJian3Library.Converters.ExeSection.Reader.Convert
+  nameWithType: Reader.Convert
+- uid: GuJian3Library.Converters.ExeSection.Reader.Initialize(Dictionary{System.String,System.String})
+  name: Initialize(Dictionary<String, String>)
+  href: api/GuJian3Library.Converters.ExeSection.Reader.html#GuJian3Library_Converters_ExeSection_Reader_Initialize_Dictionary_System_String_System_String__
+  commentId: M:GuJian3Library.Converters.ExeSection.Reader.Initialize(Dictionary{System.String,System.String})
+  name.vb: Initialize(Dictionary(Of String, String))
+  fullName: GuJian3Library.Converters.ExeSection.Reader.Initialize(Dictionary<System.String, System.String>)
+  fullName.vb: GuJian3Library.Converters.ExeSection.Reader.Initialize(Dictionary(Of System.String, System.String))
+  nameWithType: Reader.Initialize(Dictionary<String, String>)
+  nameWithType.vb: Reader.Initialize(Dictionary(Of String, String))
+- uid: GuJian3Library.Converters.ExeSection.Reader.Initialize*
+  name: Initialize
+  href: api/GuJian3Library.Converters.ExeSection.Reader.html#GuJian3Library_Converters_ExeSection_Reader_Initialize_
+  commentId: Overload:GuJian3Library.Converters.ExeSection.Reader.Initialize
+  isSpec: "True"
+  fullName: GuJian3Library.Converters.ExeSection.Reader.Initialize
+  nameWithType: Reader.Initialize
+- uid: GuJian3Library.Converters.ExeSection.Writer
+  name: Writer
+  href: api/GuJian3Library.Converters.ExeSection.Writer.html
+  commentId: T:GuJian3Library.Converters.ExeSection.Writer
+  fullName: GuJian3Library.Converters.ExeSection.Writer
+  nameWithType: Writer
+- uid: GuJian3Library.Converters.ExeSection.Writer.Convert(GuJian3Library.Formats.GameDataFormat)
+  name: Convert(GameDataFormat)
+  href: api/GuJian3Library.Converters.ExeSection.Writer.html#GuJian3Library_Converters_ExeSection_Writer_Convert_GuJian3Library_Formats_GameDataFormat_
+  commentId: M:GuJian3Library.Converters.ExeSection.Writer.Convert(GuJian3Library.Formats.GameDataFormat)
+  fullName: GuJian3Library.Converters.ExeSection.Writer.Convert(GuJian3Library.Formats.GameDataFormat)
+  nameWithType: Writer.Convert(GameDataFormat)
+- uid: GuJian3Library.Converters.ExeSection.Writer.Convert*
+  name: Convert
+  href: api/GuJian3Library.Converters.ExeSection.Writer.html#GuJian3Library_Converters_ExeSection_Writer_Convert_
+  commentId: Overload:GuJian3Library.Converters.ExeSection.Writer.Convert
+  isSpec: "True"
+  fullName: GuJian3Library.Converters.ExeSection.Writer.Convert
+  nameWithType: Writer.Convert
 - uid: GuJian3Library.Converters.Index
   name: GuJian3Library.Converters.Index
   href: api/GuJian3Library.Converters.Index.html
@@ -606,6 +666,51 @@ references:
   commentId: N:GuJian3Library.Formats
   fullName: GuJian3Library.Formats
   nameWithType: GuJian3Library.Formats
+- uid: GuJian3Library.Formats.GameDataFormat
+  name: GameDataFormat
+  href: api/GuJian3Library.Formats.GameDataFormat.html
+  commentId: T:GuJian3Library.Formats.GameDataFormat
+  fullName: GuJian3Library.Formats.GameDataFormat
+  nameWithType: GameDataFormat
+- uid: GuJian3Library.Formats.GameDataFormat.Data
+  name: Data
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Data
+  commentId: P:GuJian3Library.Formats.GameDataFormat.Data
+  fullName: GuJian3Library.Formats.GameDataFormat.Data
+  nameWithType: GameDataFormat.Data
+- uid: GuJian3Library.Formats.GameDataFormat.Data*
+  name: Data
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Data_
+  commentId: Overload:GuJian3Library.Formats.GameDataFormat.Data
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.GameDataFormat.Data
+  nameWithType: GameDataFormat.Data
+- uid: GuJian3Library.Formats.GameDataFormat.Magic
+  name: Magic
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Magic
+  commentId: P:GuJian3Library.Formats.GameDataFormat.Magic
+  fullName: GuJian3Library.Formats.GameDataFormat.Magic
+  nameWithType: GameDataFormat.Magic
+- uid: GuJian3Library.Formats.GameDataFormat.Magic*
+  name: Magic
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Magic_
+  commentId: Overload:GuJian3Library.Formats.GameDataFormat.Magic
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.GameDataFormat.Magic
+  nameWithType: GameDataFormat.Magic
+- uid: GuJian3Library.Formats.GameDataFormat.Strings
+  name: Strings
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Strings
+  commentId: P:GuJian3Library.Formats.GameDataFormat.Strings
+  fullName: GuJian3Library.Formats.GameDataFormat.Strings
+  nameWithType: GameDataFormat.Strings
+- uid: GuJian3Library.Formats.GameDataFormat.Strings*
+  name: Strings
+  href: api/GuJian3Library.Formats.GameDataFormat.html#GuJian3Library_Formats_GameDataFormat_Strings_
+  commentId: Overload:GuJian3Library.Formats.GameDataFormat.Strings
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.GameDataFormat.Strings
+  nameWithType: GameDataFormat.Strings
 - uid: GuJian3Library.Formats.IndexFile
   name: IndexFile
   href: api/GuJian3Library.Formats.IndexFile.html
@@ -806,6 +911,57 @@ references:
   isSpec: "True"
   fullName: GuJian3Library.Formats.OodleFile.Size
   nameWithType: OodleFile.Size
+- uid: GuJian3Library.Formats.TRefGameData
+  name: TRefGameData
+  href: api/GuJian3Library.Formats.TRefGameData.html
+  commentId: T:GuJian3Library.Formats.TRefGameData
+  fullName: GuJian3Library.Formats.TRefGameData
+  nameWithType: TRefGameData
+- uid: GuJian3Library.Formats.TRefGameData.Value
+  name: Value
+  href: api/GuJian3Library.Formats.TRefGameData.html#GuJian3Library_Formats_TRefGameData_Value
+  commentId: P:GuJian3Library.Formats.TRefGameData.Value
+  fullName: GuJian3Library.Formats.TRefGameData.Value
+  nameWithType: TRefGameData.Value
+- uid: GuJian3Library.Formats.TRefGameData.Value*
+  name: Value
+  href: api/GuJian3Library.Formats.TRefGameData.html#GuJian3Library_Formats_TRefGameData_Value_
+  commentId: Overload:GuJian3Library.Formats.TRefGameData.Value
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.TRefGameData.Value
+  nameWithType: TRefGameData.Value
+- uid: GuJian3Library.Formats.TupleGameData
+  name: TupleGameData
+  href: api/GuJian3Library.Formats.TupleGameData.html
+  commentId: T:GuJian3Library.Formats.TupleGameData
+  fullName: GuJian3Library.Formats.TupleGameData
+  nameWithType: TupleGameData
+- uid: GuJian3Library.Formats.TupleGameData.Value1
+  name: Value1
+  href: api/GuJian3Library.Formats.TupleGameData.html#GuJian3Library_Formats_TupleGameData_Value1
+  commentId: P:GuJian3Library.Formats.TupleGameData.Value1
+  fullName: GuJian3Library.Formats.TupleGameData.Value1
+  nameWithType: TupleGameData.Value1
+- uid: GuJian3Library.Formats.TupleGameData.Value1*
+  name: Value1
+  href: api/GuJian3Library.Formats.TupleGameData.html#GuJian3Library_Formats_TupleGameData_Value1_
+  commentId: Overload:GuJian3Library.Formats.TupleGameData.Value1
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.TupleGameData.Value1
+  nameWithType: TupleGameData.Value1
+- uid: GuJian3Library.Formats.TupleGameData.Value2
+  name: Value2
+  href: api/GuJian3Library.Formats.TupleGameData.html#GuJian3Library_Formats_TupleGameData_Value2
+  commentId: P:GuJian3Library.Formats.TupleGameData.Value2
+  fullName: GuJian3Library.Formats.TupleGameData.Value2
+  nameWithType: TupleGameData.Value2
+- uid: GuJian3Library.Formats.TupleGameData.Value2*
+  name: Value2
+  href: api/GuJian3Library.Formats.TupleGameData.html#GuJian3Library_Formats_TupleGameData_Value2_
+  commentId: Overload:GuJian3Library.Formats.TupleGameData.Value2
+  isSpec: "True"
+  fullName: GuJian3Library.Formats.TupleGameData.Value2
+  nameWithType: TupleGameData.Value2
 - uid: README
   name: GuJian3Manager
   href: index.html

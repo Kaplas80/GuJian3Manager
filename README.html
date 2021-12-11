@@ -89,7 +89,6 @@
 <p>Tools for GuJian 3 files.</p>
 <p>Data files are compressed with oodle. You need to copy <code>oo2core_6_win64.dll</code> (included in the game) into the app folder.</p>
 <p>.xxx files are encrypted with XXTEA encryption.</p>
-<p>NOTE: If you want to translate the game strings, see the great work of <a href="https://github.com/eprilx/Gujian3TextEditor">eprilx</a> and <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">alanm</a></p>
 <h2 id="building-the-app">Building the app</h2>
 <pre><code>git clone https://github.com/Kaplas80/GuJian3Manager.git
 
@@ -130,11 +129,28 @@ and execute the app using:
 <pre><code>GuJian3Tool.exe encrypt &lt;input_file&gt; &lt;output_file&gt; [--key encryption_key]
 </code></pre>
 <p>Encryption key is optional.</p>
+<h3 id="extract-game-data-to-json">Extract game data to JSON</h3>
+<pre><code>GuJian3Tool.exe extract-json &lt;path_to_text.bin&gt; &lt;output_json_file&gt;
+</code></pre>
+<p>NOTE: The input file is a decrypted exe section. See alanm <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">mod loader</a>.</p>
+<h3 id="build-game-data-from-json">Build game data from JSON</h3>
+<pre><code>GuJian3Tool.exe build-json &lt;input_json_file&gt; &lt;output_file&gt;
+</code></pre>
+<h3 id="extract-game-strings-to-po">Extract game strings to PO</h3>
+<pre><code>GuJian3Tool.exe extract-text &lt;path_to_text.bin&gt; &lt;output_directory&gt;
+</code></pre>
+<p>NOTE: The input file is a decrypted exe section. See alanm <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">mod loader</a>.</p>
+<h3 id="replace-strings-in-game-data">Replace strings in game data</h3>
+<pre><code>GuJian3Tool.exe build-text &lt;path_to_text.bin&gt; &lt;po_directory&gt; &lt;output_file&gt;
+</code></pre>
+<p>NOTE: The input file is a decrypted exe section. See alanm <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">mod loader</a>.</p>
 <h2 id="credits">Credits</h2>
 <ul>
 <li>Thanks to Pleonex for <a href="https://scenegate.github.io/Yarhl/">Yarhl</a> and for identifying XXTEA algorithm.</li>
 <li>Thanks to DARKSiDERS for finding all the encryption keys.</li>
 <li>Thanks to JKAnderson for the <a href="https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs">OodleWrapper</a>.</li>
+<li>Thanks to eprilx for the <a href="https://github.com/eprilx/Gujian3TextEditor">Gujian3TextEditor</a>.</li>
+<li>Thanks to alanm for the <a href="https://zenhax.com/viewtopic.php?f=12&amp;t=14879&amp;p=67511#p67511">mod loader</a>.</li>
 </ul>
 </article>
           </div>
