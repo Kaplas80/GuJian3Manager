@@ -23,6 +23,7 @@ namespace GuJian3Tool
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using GuJian3Library.Formats;
     using Yarhl.FileSystem;
     using Yarhl.IO;
@@ -67,14 +68,14 @@ namespace GuJian3Tool
 
             Dictionary<string, Po> poFiles = new ();
 
-            foreach (KeyValuePair<object, object> kvp in format.Data)
+            foreach (string key in format.Data.Select(kvp => (string)kvp.Key))
             {
-                if ((string)kvp.Key == "children")
+                if (key == "children")
                 {
                     continue;
                 }
 
-                poFiles[(string)kvp.Key] = new Po(header);
+                poFiles[key] = new Po(header);
             }
 
             foreach (KeyValuePair<string, string> kvp in format.Strings)
