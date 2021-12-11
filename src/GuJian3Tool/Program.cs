@@ -789,7 +789,10 @@ namespace GuJian3Tool
                 Options.Build,
                 Options.Decrypt,
                 Options.Encrypt,
-                Options.ExtractText
+                Options.ExtractJson,
+                Options.BuildJson,
+                Options.ExtractText,
+                Options.BuildText
             >(args);
 
             parserResult
@@ -799,7 +802,10 @@ namespace GuJian3Tool
                 .WithParsed<Options.Build>(Build)
                 .WithParsed<Options.Decrypt>(Decrypt)
                 .WithParsed<Options.Encrypt>(Encrypt)
-                .WithParsed<Options.ExtractText>(ExtractText);
+                .WithParsed<Options.ExtractJson>(ExtractJson)
+                .WithParsed<Options.BuildJson>(BuildJson)
+                .WithParsed<Options.ExtractText>(ExtractText)
+                .WithParsed<Options.BuildText>(BuildText);
         }
 
         private static void WriteHeader()

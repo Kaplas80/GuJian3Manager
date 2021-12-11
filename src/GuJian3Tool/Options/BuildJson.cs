@@ -26,19 +26,19 @@ namespace GuJian3Tool.Options
     /// GuJian 3 data archive extract options.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-text", HelpText = "Extract strings from GuJian 3 dump.")]
-    internal class ExtractText
+    [Verb("build-json", HelpText = "Rebuild GuJian 3 dump from JSON.")]
+    internal class BuildJson
     {
         /// <summary>
         /// Gets or sets the dump path.
         /// </summary>
-        [Value(0, MetaName = "dump file", Required = true, HelpText = "GuJian 3 dump file path.")]
+        [Value(0, MetaName = "JSON file", Required = true, HelpText = "JSON file path.")]
         public string InputFile { get; set; }
 
         /// <summary>
         /// Gets or sets the output path.
         /// </summary>
-        [Value(1, MetaName = "output directory", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        [Value(1, MetaName = "Output file", Required = true, HelpText = "Output file.")]
+        public string OutputFile { get; set; }
     }
 }

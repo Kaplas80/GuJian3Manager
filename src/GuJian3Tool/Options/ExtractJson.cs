@@ -26,8 +26,8 @@ namespace GuJian3Tool.Options
     /// GuJian 3 data archive extract options.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-text", HelpText = "Extract strings from GuJian 3 dump.")]
-    internal class ExtractText
+    [Verb("extract-json", HelpText = "Convert GuJian 3 dump to JSON.")]
+    internal class ExtractJson
     {
         /// <summary>
         /// Gets or sets the dump path.
@@ -38,7 +38,7 @@ namespace GuJian3Tool.Options
         /// <summary>
         /// Gets or sets the output path.
         /// </summary>
-        [Value(1, MetaName = "output directory", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        [Value(1, MetaName = "JSON file", Required = true, HelpText = "Output file.")]
+        public string OutputFile { get; set; }
     }
 }

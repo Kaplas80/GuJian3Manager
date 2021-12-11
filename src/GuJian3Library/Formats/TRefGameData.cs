@@ -18,27 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Tool.Options
+namespace GuJian3Library.Formats
 {
-    using CommandLine;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using Yarhl.FileFormat;
 
     /// <summary>
-    /// GuJian 3 data archive extract options.
+    /// Structure for the 0x0F and 0x10 game data types.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-text", HelpText = "Extract strings from GuJian 3 dump.")]
-    internal class ExtractText
+    public class TRefGameData
     {
         /// <summary>
-        /// Gets or sets the dump path.
+        /// Gets or sets the value.
         /// </summary>
-        [Value(0, MetaName = "dump file", Required = true, HelpText = "GuJian 3 dump file path.")]
-        public string InputFile { get; set; }
-
-        /// <summary>
-        /// Gets or sets the output path.
-        /// </summary>
-        [Value(1, MetaName = "output directory", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        public uint Value { get; set; }
     }
 }

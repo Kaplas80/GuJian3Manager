@@ -18,27 +18,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Tool.Options
+namespace GuJian3Library.Formats
 {
-    using CommandLine;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using Yarhl.FileFormat;
 
     /// <summary>
-    /// GuJian 3 data archive extract options.
+    /// Structure of the exe dumped section.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
-    [Verb("extract-text", HelpText = "Extract strings from GuJian 3 dump.")]
-    internal class ExtractText
+    public class GameDataFormat : IFormat
     {
         /// <summary>
-        /// Gets or sets the dump path.
+        /// Gets or sets the id of the section.
         /// </summary>
-        [Value(0, MetaName = "dump file", Required = true, HelpText = "GuJian 3 dump file path.")]
-        public string InputFile { get; set; }
+        public uint Magic { get; set; }
 
         /// <summary>
-        /// Gets or sets the output path.
+        /// Gets or sets the game data.
         /// </summary>
-        [Value(1, MetaName = "output directory", Required = true, HelpText = "Output directory.")]
-        public string OutputDirectory { get; set; }
+        public Dictionary<object, object> Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of strings.
+        /// </summary>
+        [JsonIgnore]
+        public Dictionary<string, string> Strings { get; set; }
     }
 }

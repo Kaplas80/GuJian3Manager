@@ -24,11 +24,12 @@ namespace GuJian3Tool
     using System.Collections.Generic;
     using System.IO;
     using GuJian3Library.Formats;
-    using Newtonsoft.Json;
     using Yarhl.FileSystem;
+    using Yarhl.IO;
+    using Yarhl.Media.Text;
 
     /// <summary>
-    /// Extract contents functionality.
+    /// Extract strings functionality.
     /// </summary>
     internal static partial class Program
     {
@@ -36,9 +37,9 @@ namespace GuJian3Tool
         {
             WriteHeader();
 
-            if (!File.Exists(opts.Path))
+            if (!File.Exists(opts.InputFile))
             {
-                Console.WriteLine($"ERROR: \"{opts.Path}\" not found!!!!");
+                Console.WriteLine($"ERROR: \"{opts.InputFile}\" not found!!!!");
                 return;
             }
 
@@ -54,13 +55,61 @@ namespace GuJian3Tool
                 }
             }
 
-            Node n = NodeFactory.FromFile(opts.Path);
-            n.TransformWith<GuJian3Library.Converters.ExeSection.ToJsonString>();
+            Console.Write("Reading dump...");
+            using Node n = NodeFactory.FromFile(opts.InputFile);
+            n.TransformWith<GuJian3Library.Converters.ExeSection.Reader>();
+            Console.WriteLine(" DONE!");
 
-            JsonString format = n.GetFormatAs<JsonString>();
+            GameDataFormat format = n.GetFormatAs<GameDataFormat>();
 
-            string obj = JsonConvert.SerializeObject(format.Value);
-            File.WriteAllText(opts.Path + ".json", obj);
+            Console.Write("Writing POs...");
+            PoHeader header = new ("GuJian 3", "none@dummy.com", "und");
+
+            Dictionary<string, Po> poFiles = new ();
+
+            foreach (KeyValuePair<object, object> kvp in format.Data)
+            {
+                if ((string)kvp.Key == "children")
+                {
+                    continue;
+                }
+
+                poFiles[(string)kvp.Key] = new Po(header);
+            }
+
+            foreach (KeyValuePair<string, string> kvp in format.Strings)
+            {
+                if (!kvp.Key.Contains("/EN"))
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(kvp.Value))
+                {
+                    continue;
+                }
+
+                string[] parts = kvp.Key.Split('/');
+
+                PoEntry poEntry = new ();
+                poEntry.Context = kvp.Key;
+
+                poEntry.Original = kvp.Value.Replace("\\", "\\\\");
+                poEntry.Translated = kvp.Value.Replace("\\", "\\\\");
+
+                poFiles[parts[1]].Add(poEntry);
+            }
+
+            foreach (KeyValuePair<string, Po> kvp in poFiles)
+            {
+                if (kvp.Value.Entries.Count > 0)
+                {
+                    using BinaryFormat bin = (BinaryFormat)Yarhl.FileFormat.ConvertFormat.With<Po2Binary>(kvp.Value);
+                    bin.Stream.WriteTo(Path.Combine(opts.OutputDirectory, $"{kvp.Key}.po"));
+                }
+            }
+
+            Console.WriteLine(" DONE!");
         }
     }
 }

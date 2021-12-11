@@ -18,13 +18,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace GuJian3Library.Formats
+namespace GuJian3Tool.Options
 {
-    using System.Dynamic;
-    using Yarhl.FileFormat;
+    using CommandLine;
 
-    public class JsonString : IFormat
+    /// <summary>
+    /// GuJian 3 build text options.
+    /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Class is passed as type parameter.")]
+    [Verb("build-text", HelpText = "Rebuild GuJian 3 dump from PO.")]
+    internal class BuildText
     {
-        public dynamic Value { get; set; }
+        /// <summary>
+        /// Gets or sets the dump path.
+        /// </summary>
+        [Value(0, MetaName = "dump file", Required = true, HelpText = "GuJian 3 dump file path.")]
+        public string InputFile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the po path.
+        /// </summary>
+        [Value(1, MetaName = "Po directory", Required = true, HelpText = "Po files path.")]
+        public string InputDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output path.
+        /// </summary>
+        [Value(2, MetaName = "Output file", Required = true, HelpText = "Output file.")]
+        public string OutputFile { get; set; }
     }
 }
