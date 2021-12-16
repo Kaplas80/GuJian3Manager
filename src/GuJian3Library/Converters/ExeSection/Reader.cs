@@ -138,7 +138,7 @@ namespace GuJian3Library.Converters.ExeSection
 
                             _strings[path] = value;
 
-                            if (_newStrings.ContainsKey(path))
+                            if (_newStrings.ContainsKey(path) && !string.IsNullOrEmpty(_newStrings[path]))
                             {
                                 value = _newStrings[path];
                             }
@@ -161,7 +161,7 @@ namespace GuJian3Library.Converters.ExeSection
 
                             _strings[path] = value;
 
-                            if (_newStrings.ContainsKey(path))
+                            if (_newStrings.ContainsKey(path) && !string.IsNullOrEmpty(_newStrings[path]))
                             {
                                 value = _newStrings[path];
                             }
