@@ -72,7 +72,7 @@ namespace GuJian3Tool
 
                 foreach (PoEntry poEntry in po.Entries)
                 {
-                    newStrings.Add(poEntry.Context, poEntry.Translated);
+                    newStrings.Add(poEntry.Context, poEntry.Translated.Replace("\\\\", "\\"));
                 }
             }
 
