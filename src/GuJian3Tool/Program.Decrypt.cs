@@ -52,6 +52,8 @@ namespace GuJian3Tool
                     Console.WriteLine("CANCELLED BY USER.");
                     return;
                 }
+
+                File.Delete(opts.OutputFile);
             }
 
             string decryptionKey = string.Empty;

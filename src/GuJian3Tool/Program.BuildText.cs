@@ -59,6 +59,8 @@ namespace GuJian3Tool
                     Console.WriteLine("CANCELLED BY USER.");
                     return;
                 }
+
+                File.Delete(opts.OutputFile);
             }
 
             Dictionary<string, string> newStrings = new Dictionary<string, string>();
