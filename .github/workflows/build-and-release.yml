@@ -14,7 +14,7 @@ on:
       - published
 
 env:
-  NET_SDK: '6.0.100'
+  NET_SDK: '6.0.200'
 
 jobs:
   build_main:
@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0 # We need full history for version number
+          lfs: true
 
       - name: "Setup .NET SDK"
         uses: actions/setup-dotnet@v1
@@ -70,6 +71,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0 # We need full history for version number
+          lfs: true
 
       - name: "Setup .NET SDK"
         uses: actions/setup-dotnet@v1
@@ -83,7 +85,7 @@ jobs:
       - name: "Build and test"
         run: dotnet cake --target=BuildTest --configuration=Release --verbosity=diagnostic
 
-  # Preview release on push to main only
+  # Preview release on push to develop only
   # Stable release on version tag push only
   push_artifacts:
     name: "Push artifacts"
@@ -92,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Needed only for Azure DevOps Artifacts due to its weird auth method.
-      PREVIEW_NUGET_FEED: 'https://pkgs.dev.azure.com/benito356/NetDevOpsTest/_packaging/Example-Preview/nuget/v3/index.json'
+      PREVIEW_NUGET_FEED: 'https://pkgs.dev.azure.com/SceneGate/SceneGate/_packaging/SceneGate-Preview/nuget/v3/index.json'
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
