@@ -77,8 +77,6 @@ namespace GuJian3Tool
             Console.Write($"Loading '{opts.Path}' (this may take a while)... ");
             using Node archive = NodeFactory.FromFile(opts.Path);
             archive.TransformWith<GuJian3Library.Converters.Data.Reader>();
-            archive.TransformWith<GuJian3Library.Converters.Data.Writer>();
-            archive.Stream.WriteTo(opts.Path + ".test");
             Console.WriteLine("DONE!");
 
             Extract(archive, opts.OutputDirectory, index, true);
