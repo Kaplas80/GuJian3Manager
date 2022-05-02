@@ -815,7 +815,7 @@ namespace GuJian3Tool
             Console.WriteLine();
         }
 
-        private static bool HasOodleDll() => File.Exists("oo2core_6_win64.dll");
+        private static bool HasOodleDll() => File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "oo2core_6_win64.dll"));
 
         private static bool IsWindows() => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
