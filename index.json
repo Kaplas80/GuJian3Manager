@@ -146,8 +146,8 @@
   },
   "dev/Changelog.html": {
     "href": "dev/Changelog.html",
-    "title": "vNext (May 02, 2022) | GuJian3 Manager",
-    "keywords": "vNext (May 02, 2022) As part of this release we had 1 issue closed. bug #26 Fix DLL search path v1.1.2 (March 24, 2022) As part of this release we had 1 issue closed. bug #22 Fix extract-single v1.1.1 (December 16, 2021) As part of this release we had 3 issues closed. bugs #17 Use original text if translation is empty #18 Unescape the slash when reading po files. #19 Delete output files if exists v1.1.0 (December 11, 2021) As part of this release we had 3 issues closed. Documentation #14 Update build.cake enhancements #15 Update yarhl #16 Read and write text.bin v1.0.0 (December 04, 2021) As part of this release we had 1 issue closed. Documentation #14 Update build.cake"
+    "title": "v1.1.3 (May 02, 2022) | GuJian3 Manager",
+    "keywords": "v1.1.3 (May 02, 2022) As part of this release we had 1 issue closed. bug #26 Fix DLL search path v1.1.2 (March 24, 2022) As part of this release we had 1 issue closed. bug #22 Fix extract-single v1.1.1 (December 16, 2021) As part of this release we had 3 issues closed. bugs #17 Use original text if translation is empty #18 Unescape the slash when reading po files. #19 Delete output files if exists v1.1.0 (December 11, 2021) As part of this release we had 3 issues closed. Documentation #14 Update build.cake enhancements #15 Update yarhl #16 Read and write text.bin v1.0.0 (December 04, 2021) As part of this release we had 1 issue closed. Documentation #14 Update build.cake"
   },
   "guides/Contributing.html": {
     "href": "guides/Contributing.html",
