@@ -78,7 +78,7 @@ Encryption key is optional.
 GuJian3Tool.exe extract-json <path_to_text.bin> <output_json_file>
 ```
 
-NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://github.com/alanm20/Gujian3TextMod).
 
 ### Build game data from JSON
 
@@ -92,7 +92,7 @@ GuJian3Tool.exe build-json <input_json_file> <output_file>
 GuJian3Tool.exe extract-text <path_to_text.bin> <output_directory>
 ```
 
-NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://github.com/alanm20/Gujian3TextMod).
 
 ### Replace strings in game data
 
@@ -100,7 +100,7 @@ NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://
 GuJian3Tool.exe build-text <path_to_text.bin> <po_directory> <output_file>
 ```
 
-NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://github.com/alanm20/Gujian3TextMod).
 
 ## Credits
 
@@ -108,4 +108,4 @@ NOTE: The input file is a decrypted exe section. See alanm [mod loader](https://
 - Thanks to DARKSiDERS for finding all the encryption keys.
 - Thanks to JKAnderson for the [OodleWrapper](https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs).
 - Thanks to eprilx for the [Gujian3TextEditor](https://github.com/eprilx/Gujian3TextEditor).
-- Thanks to alanm for the [mod loader](https://zenhax.com/viewtopic.php?f=12&t=14879&p=67511#p67511).
+- Thanks to alanm for the [mod loader](https://github.com/alanm20/Gujian3TextMod).
